@@ -13,3 +13,9 @@
 /src/Ninject.Extensions.bbvEventBroker/Ninject.Extensions.bbvEventBroker.5.0.ReSharper.user
 /src/Ninject.Extensions.bbvEventBroker/Ninject.Extensions.bbvEventBroker.5.1.TeamCity.user
 /src/Ninject.Extensions.bbvEventBroker/Ninject.Extensions.bbvEventBroker.suo
+/lib/Ninject/*.zip
+/lib/Ninject/*/**
+/lib/Ninject.Extensions.ContextPreservation/*.zip
+/lib/Ninject.Extensions.ContextPreservation/*/**
+/lib/Ninject.Extensions.NamedScope/*.zip
+/lib/Ninject.Extensions.NamedScope/*/**

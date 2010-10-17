@@ -1,5 +1,5 @@
 @echo off
-set nantfile=Ninject.Extensions.bbvEventBroker.build
+set nantfile=Ninject.build
 set nantexe=tools\nant\nant.exe
 set buildlog=Ninject.Extensions.bbvEventBroker-Nant-Build.log
 set unittestlog=Ninject.Extensions.bbvEventBroker-Nant-unit-tests.log

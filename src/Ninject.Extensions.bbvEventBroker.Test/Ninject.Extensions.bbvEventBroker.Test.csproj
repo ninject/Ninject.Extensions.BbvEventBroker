@@ -101,6 +101,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="IntegrationTests.cs" />
+    <Compile Include="MSTestAttributes\TestClassAttribute.cs" />
+    <Compile Include="MSTestAttributes\TestInitialize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

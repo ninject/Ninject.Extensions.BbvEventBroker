@@ -23,30 +23,56 @@ namespace Ninject.Extensions.bbvEventBroker
     using bbv.Common.EventBroker.Handlers;
     using Ninject.Extensions.ContextPreservation;
     using Ninject.Extensions.NamedScope;
-
+#if SILVERLIGHT
+#if SILVERLIGHT_MSTEST
+    using MsTest.Should;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Assert = Ninject.SilverlightTests.AssertWithThrows;
+    using Fact = Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute;
+#else
+    using UnitDriven;
+    using UnitDriven.Should;
+    using Assert = Ninject.SilverlightTests.AssertWithThrows;
+    using Fact = UnitDriven.TestMethodAttribute;
+#endif
+#else
+    using Ninject.Extensions.NamedScope.MSTestAttributes;
     using Xunit;
+    using Xunit.Should;
+#endif
 
     /// <summary>
     /// Integration tests for the EventBrokerModule
     /// </summary>
+    [TestClass]
     public class IntegrationTests
     {
         /// <summary>
         /// The kernel used in the tests.
         /// </summary>
-        private readonly StandardKernel kernel;
+        private StandardKernel kernel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IntegrationTests"/> class.
         /// </summary>
         public IntegrationTests()
         {
+            this.SetUp();
+        }
+
+        [TestInitialize]
+        public void SetUp()
+        {
+#if SILVERLIGHT
+            this.kernel = new StandardKernel();
+#else
             this.kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
+#endif
             this.kernel.Load(new NamedScopeModule());
             this.kernel.Load(new ContextPreservationModule());
             this.kernel.Load(new EventBrokerModule());
         }
-
+        
         /// <summary>
         /// Objects that are configured to be registered on a global event broker can communicate
         /// using event broker events.
@@ -63,8 +89,8 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
                        
-            Assert.True(parent.FirstChild.EventReceived, "Event was not received by child 1");
-            Assert.False(parent.SecondChild.EventReceived, "Event was received by child 2");
+            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
+            parent.SecondChild.EventReceived.ShouldBeFalse("Event was received by child 2");
         }
 
         /// <summary>
@@ -82,8 +108,8 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
 
-            Assert.True(parent.FirstChild.EventReceived, "Event was not received by child 1");
-            Assert.False(parent.SecondChild.EventReceived, "Event was received by child 2");
+            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
+            parent.SecondChild.EventReceived.ShouldBeFalse("Event was received by child 2");
         }
 
         /// <summary>
@@ -103,10 +129,10 @@ namespace Ninject.Extensions.bbvEventBroker
             var foo = this.kernel.Get<Foo>();
             foo.Parent1.FireSomeEvent();
 
-            Assert.True(foo.Parent1.FirstChild.EventReceived, "Event was not received by parent1.child1");
-            Assert.True(foo.Parent1.SecondChild.EventReceived, "Event was not received by parent1.child2");
-            Assert.False(foo.Parent2.FirstChild.EventReceived, "Event was received by parent2.child1");
-            Assert.False(foo.Parent2.SecondChild.EventReceived, "Event was received by parent2.child2");
+            foo.Parent1.FirstChild.EventReceived.ShouldBeTrue("Event was not received by parent1.child1");
+            foo.Parent1.SecondChild.EventReceived.ShouldBeTrue("Event was not received by parent1.child2");
+            foo.Parent2.FirstChild.EventReceived.ShouldBeFalse("Event was received by parent2.child1");
+            foo.Parent2.SecondChild.EventReceived.ShouldBeFalse("Event was received by parent2.child2");
         }
 
         /// <summary>

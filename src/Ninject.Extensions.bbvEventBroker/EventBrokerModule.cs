@@ -37,12 +37,12 @@ namespace Ninject.Extensions.bbvEventBroker
         /// </summary>
         public override void Load()
         {
-            if (!this.Kernel.HasModule(typeof(NamedScopeModule).Name))
+            if (!this.Kernel.HasModule(typeof(NamedScopeModule).FullName))
             {
                 throw new InvalidOperationException("The EventBrokerModule requires NamedScopeModule!");
             }
 
-            if (!this.Kernel.HasModule(typeof(ContextPreservationModule).Name))
+            if (!this.Kernel.HasModule(typeof(ContextPreservationModule).FullName))
             {
                 throw new InvalidOperationException("The EventBrokerModule requires ContextPreservationModule!");
             }

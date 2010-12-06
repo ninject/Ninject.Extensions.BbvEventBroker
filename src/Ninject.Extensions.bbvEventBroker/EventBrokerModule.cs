@@ -20,9 +20,6 @@
 namespace Ninject.Extensions.bbvEventBroker
 {
     using System;
-
-    using bbv.Common.EventBroker;
-
     using Ninject.Extensions.ContextPreservation;
     using Ninject.Extensions.NamedScope;
     using Ninject.Modules;
@@ -32,6 +29,11 @@ namespace Ninject.Extensions.bbvEventBroker
     /// </summary>
     public class EventBrokerModule : NinjectModule
     {
+        /// <summary>
+        /// The name of the default global event brokerl
+        /// </summary>
+        public const string DefaultGlobalEventBrokerName = "GlobalEventBroker";
+
         /// <summary>
         /// Loads the module into the kernel.
         /// </summary>
@@ -47,7 +49,7 @@ namespace Ninject.Extensions.bbvEventBroker
                 throw new InvalidOperationException("The EventBrokerModule requires ContextPreservationModule!");
             }
 
-            this.Kernel.Bind<IEventBroker>().To<EventBroker>().InSingletonScope();
+            this.Kernel.AddGlobalEventBroker(DefaultGlobalEventBrokerName);
         }
     }
 }

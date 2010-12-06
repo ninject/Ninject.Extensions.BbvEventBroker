@@ -17,7 +17,7 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-namespace Ninject.Extensions.NamedScope.MSTestAttributes
+namespace Ninject.Extensions.bbvEventBroker.MSTestAttributes
 {
     using System;
 

@@ -19,6 +19,7 @@
 
 namespace Ninject.Extensions.bbvEventBroker
 {
+    using System.Globalization;
     using bbv.Common.EventBroker;
     using Ninject.Extensions.ContextPreservation;
     using Ninject.Extensions.NamedScope;
@@ -53,7 +54,7 @@ namespace Ninject.Extensions.bbvEventBroker
         public static IBindingOnSyntax<T> RegisterOnGlobalEventBroker<T>(
             this IBindingOnSyntax<T> syntax)
         {
-            return RegisterOnEventBroker(syntax, null);
+            return RegisterOnEventBroker(syntax, EventBrokerModule.DefaultGlobalEventBrokerName);
         }
 
         /// <summary>
@@ -64,6 +65,7 @@ namespace Ninject.Extensions.bbvEventBroker
         public static void AddGlobalEventBroker(this IBindingRoot bindingRoot, string eventBrokerName)
         {
             bindingRoot.Bind<IEventBroker>().To<EventBroker>().InSingletonScope().Named(eventBrokerName);
+            bindingRoot.Bind<IEventBroker>().ToMethod(ctx => ctx.ContextPreservingGet<IEventBroker>(eventBrokerName)).WhenTargetNamed(eventBrokerName);
         }
 
         /// <summary>
@@ -79,7 +81,23 @@ namespace Ninject.Extensions.bbvEventBroker
             string namedScopeName = "EventBrokerScope" + eventBrokerName;
             syntax.DefinesNamedScope(namedScopeName);
             syntax.Kernel.Bind<IEventBroker>().To<EventBroker>().InNamedScope(namedScopeName).Named(eventBrokerName);
+            syntax.Kernel.Bind<IEventBroker>().ToMethod(ctx => ctx.ContextPreservingGet<IEventBroker>(eventBrokerName)).WhenTargetNamed(eventBrokerName);
             return syntax;
+        }
+
+        /// <summary>
+        /// Condition that matches when the target has the given name.
+        /// </summary>
+        /// <typeparam name="T">The type of the binding.</typeparam>
+        /// <param name="syntax">The syntax.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>The syntax to define more things for the binding.</returns>
+        public static IBindingInNamedWithOrOnSyntax<T> WhenTargetNamed<T>(this IBindingWhenSyntax<T> syntax, string name)
+        {
+            return syntax.When(
+                request => 
+                    request.Target != null && 
+                    request.Target.Name.ToUpper(CultureInfo.InvariantCulture) == name.ToUpper(CultureInfo.InvariantCulture));
         }
     }
 }

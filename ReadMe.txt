@@ -35,3 +35,8 @@ var parent2 = this.kernel.Get<Parent>();
 
 In this case if parents component1 fires an event it will be receives by 
 parent1.component2 but not parent2.component2 or parent2.component1
+
+Forthermore its possible to inject the event broker to the created instances in case you
+to do something more special. Therefore create a parameter that has the same name as the
+event broker. The name is case insensitive. The name of the global event broker is 
+GlobalEventBroker.

@@ -103,6 +103,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Ninject.Extensions.bbvEventBroker.Test\InjectEventBrokerTest.cs">
+      <Link>InjectEventBrokerTest.cs</Link>
+    </Compile>
     <Compile Include="..\Ninject.Extensions.bbvEventBroker.Test\IntegrationTests.cs">
       <Link>IntegrationTests.cs</Link>
     </Compile>

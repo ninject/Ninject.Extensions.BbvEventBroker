@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="IntegrationTests.cs" company="bbv Software Services AG">
+// <copyright file="InjectEventBrokerTest.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010 Software Services AG
 //   Remo Gloor (remo.gloor@gmail.com)
 //
@@ -46,7 +46,7 @@ namespace Ninject.Extensions.bbvEventBroker
     /// Integration tests for the EventBrokerModule
     /// </summary>
     [TestClass]
-    public class IntegrationTests
+    public class InjectEventBrokerTest
     {
         /// <summary>
         /// The kernel used in the tests.
@@ -54,15 +54,15 @@ namespace Ninject.Extensions.bbvEventBroker
         private StandardKernel kernel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegrationTests"/> class.
+        /// Initializes a new instance of the <see cref="InjectEventBrokerTest"/> class.
         /// </summary>
-        public IntegrationTests()
+        public InjectEventBrokerTest()
         {
             this.SetUp();
         }
 
         /// <summary>
-        /// Sets up the tests.
+        /// Sets up all tests.
         /// </summary>
         [TestInitialize]
         public void SetUp()
@@ -76,97 +76,69 @@ namespace Ninject.Extensions.bbvEventBroker
             this.kernel.Load(new ContextPreservationModule());
             this.kernel.Load(new EventBrokerModule());
         }
-        
+
         /// <summary>
-        /// Objects that are configured to be registered on a global event broker can communicate
-        /// using event broker events.
+        /// Tests the injection of the default global event broker.
         /// </summary>
         [Fact]
-        public void RegisterOnGlobalEventBroker()
+        public void InjectDefaultGlobalEventBroker()
         {
-            const string EventBrokerName = "GlobalEventBroker2";
+            this.kernel.Bind<ParentWithDefaultEventBroker>().ToSelf().RegisterOnGlobalEventBroker();
+            this.kernel.Bind<Child>().ToSelf();
+
+            var parent = this.kernel.Get<ParentWithDefaultEventBroker>();
+            parent.FireSomeEvent();
+
+            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
+        }
+
+        /// <summary>
+        /// Tests the injection of a named global event broker.
+        /// </summary>
+        [Fact]
+        public void InjectNamedGlobalEventBroker()
+        {
+            const string EventBrokerName = "EventBrokerName";
             this.kernel.AddGlobalEventBroker(EventBrokerName);
             this.kernel.Bind<Parent>().ToSelf().RegisterOnEventBroker(EventBrokerName);
-            this.kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnEventBroker(EventBrokerName);
-            this.kernel.Bind<Child>().ToSelf().Named("SecondChild");
-
-            var parent = this.kernel.Get<Parent>();
-            parent.FireSomeEvent();
-                       
-            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
-            parent.SecondChild.EventReceived.ShouldBeFalse("Event was received by child 2");
-        }
-
-        /// <summary>
-        /// Objects that are configured to be registered on a global event broker can communicate
-        /// using event broker events.
-        /// </summary>
-        [Fact]
-        public void RegisterOnDefaultGlobalEventBroker()
-        {
-            const string EventBrokerName = "GlobalEventBroker2";
-            this.kernel.AddGlobalEventBroker(EventBrokerName);
-            this.kernel.Bind<Parent>().ToSelf().RegisterOnGlobalEventBroker();
-            this.kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnGlobalEventBroker();
-            this.kernel.Bind<Child>().ToSelf().Named("SecondChild").RegisterOnEventBroker(EventBrokerName);
+            this.kernel.Bind<Child>().ToSelf();
 
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
 
             parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
-            parent.SecondChild.EventReceived.ShouldBeFalse("Event was received by child 2");
         }
 
         /// <summary>
-        /// Objects that are configured to be registered on a local event broker can communicate
-        /// using event broker events. Objects on an other instance of this local event broker
-        /// do not receive the events.
+        /// Tests the injection of a local event broker.
         /// </summary>
         [Fact]
-        public void RegisterOnLocalEventBroker()
+        public void InjectLocalEventBroker()
         {
-            const string EventBrokerName = "LocalEventBroker";
-            this.kernel.Bind<Foo>().ToSelf();
+            const string EventBrokerName = "EventBrokerName";
             this.kernel.Bind<Parent>().ToSelf().RegisterOnEventBroker(EventBrokerName).OwnsEventBroker(EventBrokerName);
-            this.kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnEventBroker(EventBrokerName);
-            this.kernel.Bind<Child>().ToSelf().Named("SecondChild").RegisterOnEventBroker(EventBrokerName);
+            this.kernel.Bind<Child>().ToSelf();
 
-            var foo = this.kernel.Get<Foo>();
-            foo.Parent1.FireSomeEvent();
+            var parent = this.kernel.Get<Parent>();
+            parent.FireSomeEvent();
 
-            foo.Parent1.FirstChild.EventReceived.ShouldBeTrue("Event was not received by parent1.child1");
-            foo.Parent1.SecondChild.EventReceived.ShouldBeTrue("Event was not received by parent1.child2");
-            foo.Parent2.FirstChild.EventReceived.ShouldBeFalse("Event was received by parent2.child1");
-            foo.Parent2.SecondChild.EventReceived.ShouldBeFalse("Event was received by parent2.child2");
+            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
         }
 
         /// <summary>
-        /// Test class
+        /// A test object that gets the default global event broker injected
         /// </summary>
-        public class Foo
+        public class ParentWithDefaultEventBroker : Parent
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="Foo"/> class.
+            /// Initializes a new instance of the <see cref="ParentWithDefaultEventBroker"/> class.
             /// </summary>
-            /// <param name="parent1">The parent1.</param>
-            /// <param name="parent2">The parent2.</param>
-            public Foo(Parent parent1, Parent parent2)
+            /// <param name="child">The child.</param>
+            /// <param name="globalEventBroker">The global event broker.</param>
+            public ParentWithDefaultEventBroker(Child child, IEventBroker globalEventBroker) 
+                : base(child, globalEventBroker)
             {
-                this.Parent1 = parent1;
-                this.Parent2 = parent2;
             }
-
-            /// <summary>
-            /// Gets the first parent.
-            /// </summary>
-            /// <value>The first parent.</value>
-            public Parent Parent1 { get; private set; }
-
-            /// <summary>
-            /// Gets the second parent.
-            /// </summary>
-            /// <value>The second parent.</value>
-            public Parent Parent2 { get; private set; }
         }
 
         /// <summary>
@@ -177,14 +149,12 @@ namespace Ninject.Extensions.bbvEventBroker
             /// <summary>
             /// Initializes a new instance of the <see cref="Parent"/> class.
             /// </summary>
-            /// <param name="firstChild">The first child.</param>
-            /// <param name="secondChild">The second child.</param>
-            public Parent(
-                [Named("FirstChild")]Child firstChild,
-                [Named("SecondChild")]Child secondChild)
+            /// <param name="child">The child.</param>
+            /// <param name="eventBrokerName">The event broker.</param>
+            public Parent(Child child, IEventBroker eventBrokerName)
             {
-                this.FirstChild = firstChild;
-                this.SecondChild = secondChild;
+                this.FirstChild = child;
+                eventBrokerName.Register(child);
             }
 
             /// <summary>
@@ -198,12 +168,6 @@ namespace Ninject.Extensions.bbvEventBroker
             /// </summary>
             /// <value>The first child.</value>
             public Child FirstChild { get; private set; }
-
-            /// <summary>
-            /// Gets the second child.
-            /// </summary>
-            /// <value>The second child.</value>
-            public Child SecondChild { get; private set; }
 
             /// <summary>
             /// Fires some event.

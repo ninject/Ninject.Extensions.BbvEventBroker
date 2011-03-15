@@ -13,7 +13,7 @@
       <dependency id="Ninject" version="" />
       <dependency id="Ninject.Extensions.ContextPreservation" version="" />
       <dependency id="Ninject.Extensions.NamedScope" version="" />
-      <dependency id="bbv.Common" version="6.234" />
+      <dependency id="bbv.Common.EventBroker" version="[7.1,7.2)" />
     </dependencies> 
   </metadata>
 </package>

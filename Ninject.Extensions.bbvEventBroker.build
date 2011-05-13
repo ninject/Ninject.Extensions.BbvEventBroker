@@ -111,7 +111,6 @@
 			<sources basedir="${path.src}">
 				<include name="${product.name}.Test/**/*.cs"/>
 				<include name="${product.name}.SilverlightTests/*.cs"/>
-				<exclude name="${product.name}.Test/MSTestAttributes/*.cs"/>
 			</sources>
 			<references basedir="${current.path.test}">
 				<include name="mscorlib.dll"/>

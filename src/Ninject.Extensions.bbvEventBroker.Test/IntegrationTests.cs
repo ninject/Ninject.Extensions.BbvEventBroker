@@ -22,10 +22,12 @@ namespace Ninject.Extensions.bbvEventBroker
     using System;
     using bbv.Common.EventBroker;
     using bbv.Common.EventBroker.Handlers;
+
+    using FluentAssertions;
+
     using Ninject.Extensions.ContextPreservation;
     using Ninject.Extensions.NamedScope;
     using Xunit;
-    using Xunit.Should;
 
     /// <summary>
     /// Integration tests for the EventBrokerModule
@@ -76,8 +78,8 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
                        
-            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
-            parent.SecondChild.EventReceived.ShouldBeFalse("Event was received by child 2");
+            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
+            parent.SecondChild.EventReceived.Should().BeFalse("Event was received by child 2");
         }
 
         /// <summary>
@@ -96,8 +98,8 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
 
-            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
-            parent.SecondChild.EventReceived.ShouldBeFalse("Event was received by child 2");
+            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
+            parent.SecondChild.EventReceived.Should().BeFalse("Event was received by child 2");
         }
 
         /// <summary>
@@ -117,10 +119,10 @@ namespace Ninject.Extensions.bbvEventBroker
             var foo = this.kernel.Get<Foo>();
             foo.Parent1.FireSomeEvent();
 
-            foo.Parent1.FirstChild.EventReceived.ShouldBeTrue("Event was not received by parent1.child1");
-            foo.Parent1.SecondChild.EventReceived.ShouldBeTrue("Event was not received by parent1.child2");
-            foo.Parent2.FirstChild.EventReceived.ShouldBeFalse("Event was received by parent2.child1");
-            foo.Parent2.SecondChild.EventReceived.ShouldBeFalse("Event was received by parent2.child2");
+            foo.Parent1.FirstChild.EventReceived.Should().BeTrue("Event was not received by parent1.child1");
+            foo.Parent1.SecondChild.EventReceived.Should().BeTrue("Event was not received by parent1.child2");
+            foo.Parent2.FirstChild.EventReceived.Should().BeFalse("Event was received by parent2.child1");
+            foo.Parent2.SecondChild.EventReceived.Should().BeFalse("Event was received by parent2.child2");
         }
 
         /// <summary>

@@ -22,10 +22,12 @@ namespace Ninject.Extensions.bbvEventBroker
     using System;
     using bbv.Common.EventBroker;
     using bbv.Common.EventBroker.Handlers;
+
+    using FluentAssertions;
+
     using Ninject.Extensions.ContextPreservation;
     using Ninject.Extensions.NamedScope;
     using Xunit;
-    using Xunit.Should;
 
     /// <summary>
     /// Integration tests for the EventBrokerModule
@@ -72,7 +74,7 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<ParentWithDefaultEventBroker>();
             parent.FireSomeEvent();
 
-            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
+            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
         }
 
         /// <summary>
@@ -89,7 +91,7 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
 
-            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
+            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
         }
 
         /// <summary>
@@ -105,7 +107,7 @@ namespace Ninject.Extensions.bbvEventBroker
             var parent = this.kernel.Get<Parent>();
             parent.FireSomeEvent();
 
-            parent.FirstChild.EventReceived.ShouldBeTrue("Event was not received by child 1");
+            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
         }
 
         /// <summary>

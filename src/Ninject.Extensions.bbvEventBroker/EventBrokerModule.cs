@@ -39,6 +39,14 @@ namespace Ninject.Extensions.bbvEventBroker
         /// </summary>
         public override void Load()
         {
+            this.Kernel.AddGlobalEventBroker(DefaultGlobalEventBrokerName);
+        }
+
+        /// <summary>
+        /// Called after loading the modules. A module can verify here if all other required modules are loaded.
+        /// </summary>
+        public override void VerifyRequiredModulesAreLoaded()
+        {
             if (!this.Kernel.HasModule(typeof(NamedScopeModule).FullName))
             {
                 throw new InvalidOperationException("The EventBrokerModule requires NamedScopeModule!");
@@ -48,8 +56,6 @@ namespace Ninject.Extensions.bbvEventBroker
             {
                 throw new InvalidOperationException("The EventBrokerModule requires ContextPreservationModule!");
             }
-
-            this.Kernel.AddGlobalEventBroker(DefaultGlobalEventBrokerName);
         }
     }
 }

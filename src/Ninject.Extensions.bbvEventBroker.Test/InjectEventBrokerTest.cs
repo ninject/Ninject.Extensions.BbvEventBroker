@@ -52,14 +52,12 @@ namespace Ninject.Extensions.bbvEventBroker
         /// </summary>
         public void SetUp()
         {
-#if SILVERLIGHT
             this.kernel = new StandardKernel();
-#else
-            this.kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
-#endif
+#if SILVERLIGHT
             this.kernel.Load(new NamedScopeModule());
             this.kernel.Load(new ContextPreservationModule());
             this.kernel.Load(new EventBrokerModule());
+#endif
         }
 
         /// <summary>

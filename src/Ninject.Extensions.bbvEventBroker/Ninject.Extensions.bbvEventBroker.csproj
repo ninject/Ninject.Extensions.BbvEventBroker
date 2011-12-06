@@ -43,7 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,20 +62,17 @@
     <AssemblyOriginatorKeyFile>..\Ninject.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="bbv.Common.EventBroker">
+    <Reference Include="bbv.Common.EventBroker, Version=7.1.0.0, Culture=neutral, PublicKeyToken=917bca444d1f2b4c, processorArchitecture=MSIL">
       <HintPath>..\..\lib\EventBroker\net\bbv.Common.EventBroker.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject, Version=2.1.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Ninject\net-3.5\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=2.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Ninject\net-4.0\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.ContextPreservation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Ninject.Extensions.ContextPreservation\net-3.5\Ninject.Extensions.ContextPreservation.dll</HintPath>
+    <Reference Include="Ninject.Extensions.ContextPreservation, Version=2.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Ninject.Extensions.ContextPreservation\net-4.0\Ninject.Extensions.ContextPreservation.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject.Extensions.NamedScope, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Ninject.Extensions.NamedScope\net-3.5\Ninject.Extensions.NamedScope.dll</HintPath>
+    <Reference Include="Ninject.Extensions.NamedScope, Version=2.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\lib\Ninject.Extensions.NamedScope\net-4.0\Ninject.Extensions.NamedScope.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

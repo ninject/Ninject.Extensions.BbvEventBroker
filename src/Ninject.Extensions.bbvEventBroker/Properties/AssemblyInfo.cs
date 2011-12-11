@@ -19,6 +19,7 @@
 
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -27,3 +28,7 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("114aa4ea-cfad-45f6-8877-093391ded68b")]
+
+#if !NO_PARTIAL_TRUST
+[assembly: AllowPartiallyTrustedCallers]
+#endif

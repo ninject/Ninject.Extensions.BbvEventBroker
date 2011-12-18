@@ -32,3 +32,4 @@ using System.Security;
 #if !NO_PARTIAL_TRUST
 [assembly: AllowPartiallyTrustedCallers]
 #endif
+[assembly: AssemblyDescriptionAttribute("Event messaging extenions for Ninject using bbv.Common.EventBroker")]

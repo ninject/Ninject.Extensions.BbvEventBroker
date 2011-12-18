@@ -260,7 +260,8 @@
 
 	<target name="config-platform-mono-2.0">
 		<property name="nant.settings.currentframework" value="mono-2.0"/>
-		<property name="build.defines" value="${global.build.defines},NET,NET_35,MONO,NO_GENERIC_MOQ"/>
+		<property name="build.defines" value="${global.build.defines},NET,NET_35,MONO,NO_GENERIC_MOQ,MONO_2_6" if="${teamcity}"/>
+		<property name="build.defines" value="${global.build.defines},NET,NET_35,MONO,NO_GENERIC_MOQ" unless="${teamcity}"/>
 		<property name="nuget.add" value="false"/>
 	</target>
 	

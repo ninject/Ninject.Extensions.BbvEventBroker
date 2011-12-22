@@ -4,504 +4,6 @@
         <name>bbv.Common.EventBroker</name>
     </assembly>
     <members>
-        <member name="T:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase">
-            <summary>
-            Base class for <see cref="T:bbv.Common.EventBroker.IEventBrokerExtension"/>s that implements all members as virtual methods.
-            Derive from this class if you want to override only a few of the methods provided by <see cref="T:bbv.Common.EventBroker.IEventBrokerExtension"/>.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.IEventBrokerExtension">
-            <summary>
-            Interface for implementing event broker extensions.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.FiringEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
-            <summary>
-            Called when an event is fired.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.FiredEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
-            <summary>
-            Called when the event was fired (processing completed).
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RegisteredItem(System.Object)">
-            <summary>
-            Called when an item was registered.
-            </summary>
-            <param name="item">The item that was registered.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.UnregisteredItem(System.Object)">
-            <summary>
-            Called when an item was unregistered.
-            </summary>
-            <param name="item">The item that was unregistered.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.ProcessedPublisher(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
-            <summary>
-            Called after a (potential) publisher was processed.
-            </summary>
-            <param name="publisher">The publisher.</param>
-            <param name="register">Whether the publisher is registered; or unregistered.</param>
-            <param name="eventTopicHost">The event topic host.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.ProcessedSubscriber(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
-            <summary>
-            Called after a (potential) subscriber was processed.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="register">Whether the subscriber is registered; or unregistered.</param>
-            <param name="eventTopicHost">The event topic host.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.CreatedTopic(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
-            <summary>
-            Called after an event topic was created.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.CreatedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
-            <summary>
-            Called after a publication was created.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.CreatedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
-            <summary>
-            Called after a subscription was created.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="subscription">The subscription.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.AddedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
-            <summary>
-            Called after a publication was added to an event topic.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RemovedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
-            <summary>
-            Called after a publication was removed from an event topic.
-            </summary>
-            <param name="eventTopic">The event topic. Null if removed by code.</param>
-            <param name="publication">The publication.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.AddedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
-            <summary>
-            Called after a subscription was added to an event topic.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="subscription">The subscription.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RemovedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
-            <summary>
-            Called after a subscription was removed from an event topic.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="subscription">The subscription.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.Disposed(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
-            <summary>
-            Called after an event topic was disposed.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.SubscriberExceptionsOccurred(bbv.Common.EventBroker.Internals.IEventTopicInfo,System.Collections.Generic.IEnumerable{System.Exception})">
-            <summary>
-            Called when exceptions occurred during event handling by subscribers.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="exceptions">The exceptions.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RelayingEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs)">
-            <summary>
-            Called before an event is relayed from the publication to the subscribers.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="handler">The handler.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RelayedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs,System.Exception)">
-            <summary>
-            Called after the event was relayed from the publication to the subscribers.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="handler">The handler.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="exception">The exception that occurred during handling of the event by the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.SkippedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.Object,System.EventArgs)">
-            <summary>
-            Called when a publication or subscription matcher did not match and the event was not relayed to a subscription.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.FiringEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
-            <summary>
-            Called when an event is fired.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.FiredEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
-            <summary>
-            Called when the event was fired (processing completed).
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RegisteredItem(System.Object)">
-            <summary>
-            Called when an item was registered.
-            </summary>
-            <param name="item">The item that was registered.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.UnregisteredItem(System.Object)">
-            <summary>
-            Called when an item was unregistered.
-            </summary>
-            <param name="item">The item that was unregistered.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.ProcessedPublisher(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
-            <summary>
-            Called after a (potential) publisher was processed.
-            </summary>
-            <param name="publisher">The publisher.</param>
-            <param name="register">Whether the publisher is registered; or unregistered.</param>
-            <param name="eventTopicHost">The event topic host.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.ProcessedSubscriber(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
-            <summary>
-            Called after a (potential) subscriber was processed.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="register">Whether the subscriber is registered; or unregistered.</param>
-            <param name="eventTopicHost">The event topic host.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.CreatedTopic(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
-            <summary>
-            Called after an event topic was created.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.CreatedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
-            <summary>
-            Called after a publication was created.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.CreatedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
-            <summary>
-            Called after a subscription was created.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="subscription">The subscription.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.AddedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
-            <summary>
-            Called after a publication was added to an event topic.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RemovedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
-            <summary>
-            Called after a publication was removed from an event topic.
-            </summary>
-            <param name="eventTopic">The event topic. Null if removed by code.</param>
-            <param name="publication">The publication.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.AddedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
-            <summary>
-            Called after a subscription was added to an event topic.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="subscription">The subscription.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RemovedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
-            <summary>
-            Called after a subscription was removed from an event topic.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="subscription">The subscription.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.Disposed(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
-            <summary>
-            Called after an event topic was disposed.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.SubscriberExceptionsOccurred(bbv.Common.EventBroker.Internals.IEventTopicInfo,System.Collections.Generic.IEnumerable{System.Exception})">
-            <summary>
-            Called when exceptions occurred during event handling by subscribers.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="exceptions">The exceptions.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RelayingEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs)">
-            <summary>
-            Called before an event is relayed from the publication to the subscribers.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="handler">The handler.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RelayedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs,System.Exception)">
-            <summary>
-            Called after the event was relayed from the publication to the subscribers.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="handler">The handler.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="exception">The exception that occurred during handling of the event by the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.SkippedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.Object,System.EventArgs)">
-            <summary>
-            Called when a publication or subscription matcher did not match and the event was not relayed to a subscription.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Internals.CodePublication`1">
-            <summary>
-            Publication that was registered by code.
-            </summary>
-            <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Internals.Publication">
-            <summary>
-            Represents a topic publication.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Internals.IPublication">
-            <summary>
-            Defines a publication. Either a real <see cref="T:bbv.Common.EventBroker.Internals.Publication"/> or a <see cref="T:bbv.Common.EventBroker.Internals.SpontaneousPublication"/>.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.IPublication.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this publication
-            name, scope, event handler.
-            </summary>
-            <param name="writer">The writer.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.IPublication.Publisher">
-            <summary>
-            Gets the publisher of the event.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.IPublication.PublicationMatchers">
-            <summary>
-            Gets the publication matchers.
-            </summary>
-            <value>The publication matchers.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.IPublication.HandlerRestriction">
-            <summary>
-            Gets the subscriber handler restriction.
-            </summary>
-            <value>The subscriber handler restriction.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.IPublication.EventName">
-            <summary>
-            Gets the name of the event on the <see cref="P:bbv.Common.EventBroker.Internals.Publication.Publisher"/>.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.IPublication.EventArgsType">
-            <summary>
-            Gets the type of the event arguments.
-            </summary>
-            <value>The type of the event arguments.</value>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Publication.topic">
-            <summary>
-            The event topic this publication is registered on.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Publication.publisher">
-            <summary>
-            Weak reference to the publisher.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Publication.publicationMatchers">
-            <summary>
-            The matchers used on this publication.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Publication.handlerRestriction">
-            <summary>
-            Restriction of this publication for its subscription handlers.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Publication.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.Publication"/> class.
-            </summary>
-            <param name="topic">The event topic this publication belongs to.</param>
-            <param name="publisher">The publisher.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="publicationMatchers">The publication matchers.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Publication.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this publication
-            name, scope, event handler.
-            </summary>
-            <param name="writer">The writer.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Publication.Dispose">
-            <summary>
-            See <see cref="M:System.IDisposable.Dispose"/> for more information.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Publication.Dispose(System.Boolean)">
-            <summary>
-            Implementation of the disposable pattern.
-            </summary>
-            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Publication.Fire(System.Object,System.EventArgs)">
-            <summary>
-            Fires the event publication.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Publication.Publisher">
-            <summary>
-            Gets the publisher of the event.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Publication.EventName">
-            <summary>
-            Gets the name of the event on the <see cref="P:bbv.Common.EventBroker.Internals.Publication.Publisher"/>.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Publication.HandlerRestriction">
-            <summary>
-            Gets the subscriber handler restriction.
-            </summary>
-            <value>The subscriber handler restriction.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Publication.PublicationMatchers">
-            <summary>
-            Gets the publication matchers.
-            </summary>
-            <value>The publication matcher.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Publication.EventArgsType">
-            <summary>
-            Gets the type of the event arguments.
-            </summary>
-            <value>The type of the event arguments.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Publication.IsPublisherAlive">
-            <summary>
-            Gets a value indicating whether the publisher is alive (not garbage collected).
-            </summary>
-            <value><c>true</c> if the publisher is alive; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.CodePublication`1.EventNameOfCodePublication">
-            <summary>
-            This name is used for events of publications made in code. The real name cannot be accessed through the event handler.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.CodePublication`1.eventArgsType">
-            <summary>
-            Type of the event args of the published event.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.CodePublication`1"/> class.
-            </summary>
-            <param name="topic">The topic.</param>
-            <param name="publisher">The publisher.</param>
-            <param name="eventHandler">The event handler.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="publicationMatchers">The publication matchers.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler{`0}@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.CodePublication`1"/> class.
-            </summary>
-            <param name="topic">The topic.</param>
-            <param name="publisher">The publisher.</param>
-            <param name="eventHandler">The event handler.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="publicationMatchers">The publication matchers.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.Unregister(System.EventHandler@)">
-            <summary>
-            Unregisters the specified published event.
-            </summary>
-            <param name="publishedEvent">The published event.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.Unregister(System.EventHandler{`0}@)">
-            <summary>
-            Unregisters the specified published event.
-            </summary>
-            <param name="publishedEvent">The published event.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.Dispose(System.Boolean)">
-            <summary>
-            Implementation of the disposable pattern.
-            </summary>
-            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.PublicationHandler(System.Object,System.EventArgs)">
-            <summary>
-            Fires the event publication. This method is registered to the event on the publisher.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.CodePublication`1.EventName">
-            <summary>
-            Gets the name of the event on the <see cref="P:bbv.Common.EventBroker.Internals.Publication.Publisher"/>.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.CodePublication`1.EventArgsType">
-            <summary>
-            Gets the type of the event arguments.
-            </summary>
-            <value>The type of the event arguments.</value>
-        </member>
         <member name="T:bbv.Common.EventBroker.EventBroker">
             <summary>
             The <see cref="T:bbv.Common.EventBroker.EventBroker"/> is the facade component to the event broker framework.
@@ -991,6 +493,1295 @@
             Unregisters the event handler of all topics
             </remarks>
         </member>
+        <member name="T:bbv.Common.EventBroker.EventPublicationAttribute">
+            <summary>
+            Declares an event as an <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> publication.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.EventPublicationAttribute.topic">
+            <summary>
+            The URI of the event topic this publication refers to.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.EventPublicationAttribute.matcherTypes">
+            <summary>
+            Which matchers are used for this publication.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.EventPublicationAttribute.handlerRestriction">
+            <summary>
+            The restriction this publication has for subscribers.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class with
+            global publication scope.
+            </summary>
+            <param name="topic">The topic URI.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String,bbv.Common.EventBroker.HandlerRestriction)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class.
+            </summary>
+            <param name="topic">The topic URI.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String,System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class.
+            </summary>
+            <param name="topic">The topic.</param>
+            <param name="matcherTypes">The matcher types.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String,bbv.Common.EventBroker.HandlerRestriction,System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class.
+            </summary>
+            <param name="topic">The topic.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="matcherTypes">The matcher types.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.EventPublicationAttribute.Topic">
+            <summary>
+            Gets the topic URI.
+            </summary>
+            <value>The topic URI.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.EventPublicationAttribute.MatcherTypes">
+            <summary>
+            Gets the types of the matchers.
+            </summary>
+            <value>The types of the matchers.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.EventPublicationAttribute.HandlerRestriction">
+            <summary>
+            Gets the handler restriction this publication has for its subscribers. Whether all (null),
+            only synchronous or asynchronous handling is allowed.
+            </summary>
+            <value>The handler restriction.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.EventSubscriptionAttribute">
+            <summary>
+            Declares a handler as an <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> subscription.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.EventSubscriptionAttribute.topic">
+            <summary>
+            The URI of the event topic this publication refers to.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.EventSubscriptionAttribute.handlerType">
+            <summary>
+            Which threading strategy handler is used for this subscription.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.EventSubscriptionAttribute.matcherTypes">
+            <summary>
+            Which matchers are used for this subscription.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.EventSubscriptionAttribute.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventSubscriptionAttribute"/> class using the specified handler to execute the subscription.
+            </summary>
+            <param name="topic">The name of the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> to subscribe to.</param>
+            <param name="handlerType">The type of the handler to execute the subscription (on publisher thread, user interface, ...).</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.EventSubscriptionAttribute.#ctor(System.String,System.Type,System.Type[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventSubscriptionAttribute"/> class using the specified handler to execute the subscription and the
+            specified subscription scope matcher.
+            </summary>
+            <param name="topic">The name of the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> to subscribe to.</param>
+            <param name="handlerType">The type of the handler to execute the subscription (on publisher thread, user interface, ...).</param>
+            <param name="matcherTypes">Type of the matchers used for this subscription.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.EventSubscriptionAttribute.Topic">
+            <summary>
+            Gets the name of the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> the decorated method is subscribed to.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.EventSubscriptionAttribute.HandlerType">
+            <summary>
+            Gets the type of the subscription execution handler.
+            </summary>
+            <value>The type of the subscription execution handler.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.EventSubscriptionAttribute.MatcherTypes">
+            <summary>
+            Gets the types of the matchers.
+            </summary>
+            <value>The types of the matchers.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.EventBrokerException">
+            <summary>
+            Base exception for all exceptions that are thrown within the event broker framework.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor(System.String,System.Object[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
+            </summary>
+            <param name="format">Exception message as a format string.</param>
+            <param name="args">Argument for the exception message format string.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
+            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0). </exception>
+            <exception cref="T:System.ArgumentNullException">The info parameter is null. </exception>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.EventTopicException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown by the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> when exceptions occurs
+            on its subscriptions during a firing sequence.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Exceptions.EventTopicException.exceptions">
+            <summary>
+            The list of all exceptions that occurred on all subscription handlers.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Exceptions.EventTopicException.topic">
+            <summary>
+            Link to the event topic that was fired.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class with a specified error message 
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, 
+            or a null reference if no inner exception is specified.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Collections.ObjectModel.ReadOnlyCollection{System.Exception})">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class with the specified list of exceptions.
+            </summary>
+            <param name="topic">The <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> instance whose subscribers incurred into an exception.</param>
+            <param name="exceptions">The list of exceptions that occurred during the subscribers invocation.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class.
+            </summary>
+            <param name="topic">The <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> instance whose subscribers incurred into an exception.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Exceptions.EventTopicException.Exceptions">
+            <summary>
+            Gets the list of exceptions that occurred during the subscribers invocation.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Exceptions.EventTopicException.Topic">
+            <summary>
+            Gets the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> which incurred into errors.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.InvalidPublicationSignatureException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when an invalid publication signature is found while registering a publisher.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.InvalidPublicationSignatureException.#ctor(System.Reflection.EventInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.InvalidPublicationSignatureException"/> class.
+            </summary>
+            <param name="eventInfo">The event info.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when an invalid subscription signature is found while registering a subscriber.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException.methodInfo">
+            <summary>
+            The method info of the handler with invalid signature.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException.#ctor(System.Reflection.MethodInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException"/> class.
+            </summary>
+            <param name="methodInfo">The method info.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException.MethodInfo">
+            <summary>
+            Gets the method info of the handler with invalid signature.
+            </summary>
+            <value>Method info of invalid subscription handler.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.NotUserInterfaceThreadException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a subscription on UI thread is found on a subscriber that is not registered on the UI thread.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.NotUserInterfaceThreadException.#ctor(System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.NotUserInterfaceThreadException"/> class.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethodName">Name of the handler method.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.PublisherEventNotFoundException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a published event can not be found while registering a publisher.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.PublisherEventNotFoundException.#ctor(System.Type,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.PublisherEventNotFoundException"/> class.
+            </summary>
+            <param name="publisherType">Type of the publisher.</param>
+            <param name="eventName">Name of the event.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a single publication event defines the same topic several times.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException.#ctor(System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException"/> class.
+            </summary>
+            <param name="publisher">The publisher.</param>
+            <param name="eventName">Name of the event.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.RepeatedSubscriptionException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a single subscription handler method defines the same topic several times.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.RepeatedSubscriptionException.#ctor(System.Object,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.RepeatedSubscriptionException"/> class.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethodName">Name of the handler method.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.StaticPublisherEventException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a published event is static.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.StaticPublisherEventException.#ctor(System.Reflection.EventInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.StaticPublisherEventException"/> class.
+            </summary>
+            <param name="eventInfo">The event info.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.StaticSubscriberHandlerException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a static subscription handler is found.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.StaticSubscriberHandlerException.#ctor(System.Reflection.MethodInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.StaticSubscriberHandlerException"/> class.
+            </summary>
+            <param name="methodInfo">The method info.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException">
+            <summary>
+            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a handler emthod can not be found.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.subscriberType">
+            <summary>
+            The type of the subscriber.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.handlerMethodName">
+            <summary>
+            The name of the handler method.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.#ctor(System.Type,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException"/> class.
+            </summary>
+            <param name="subscriberType">Type of the subscriber.</param>
+            <param name="handlerMethodName">Name of the handler method.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.SubscriberType">
+            <summary>
+            Gets the type of the subscriber.
+            </summary>
+            <value>The type of the subscriber.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.HandlerMethodName">
+            <summary>
+            Gets the name of the handler method.
+            </summary>
+            <value>The name of the handler method.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase">
+            <summary>
+            Base class for <see cref="T:bbv.Common.EventBroker.IEventBrokerExtension"/>s that implements all members as virtual methods.
+            Derive from this class if you want to override only a few of the methods provided by <see cref="T:bbv.Common.EventBroker.IEventBrokerExtension"/>.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.IEventBrokerExtension">
+            <summary>
+            Interface for implementing event broker extensions.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.FiringEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
+            <summary>
+            Called when an event is fired.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.FiredEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
+            <summary>
+            Called when the event was fired (processing completed).
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RegisteredItem(System.Object)">
+            <summary>
+            Called when an item was registered.
+            </summary>
+            <param name="item">The item that was registered.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.UnregisteredItem(System.Object)">
+            <summary>
+            Called when an item was unregistered.
+            </summary>
+            <param name="item">The item that was unregistered.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.ProcessedPublisher(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
+            <summary>
+            Called after a (potential) publisher was processed.
+            </summary>
+            <param name="publisher">The publisher.</param>
+            <param name="register">Whether the publisher is registered; or unregistered.</param>
+            <param name="eventTopicHost">The event topic host.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.ProcessedSubscriber(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
+            <summary>
+            Called after a (potential) subscriber was processed.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="register">Whether the subscriber is registered; or unregistered.</param>
+            <param name="eventTopicHost">The event topic host.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.CreatedTopic(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
+            <summary>
+            Called after an event topic was created.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.CreatedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Called after a publication was created.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.CreatedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
+            <summary>
+            Called after a subscription was created.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="subscription">The subscription.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.AddedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Called after a publication was added to an event topic.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RemovedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Called after a publication was removed from an event topic.
+            </summary>
+            <param name="eventTopic">The event topic. Null if removed by code.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.AddedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
+            <summary>
+            Called after a subscription was added to an event topic.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="subscription">The subscription.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RemovedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
+            <summary>
+            Called after a subscription was removed from an event topic.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="subscription">The subscription.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.Disposed(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
+            <summary>
+            Called after an event topic was disposed.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.SubscriberExceptionOccurred(bbv.Common.EventBroker.Internals.IEventTopicInfo,System.Exception,bbv.Common.EventBroker.ExceptionHandlingContext)">
+            <summary>
+            Called when an exception occurred during event handling by a subscriber.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="exception">The exception.</param>
+            <param name="context">The context providing information whether the exception is handled by an extension or is re-thrown.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RelayingEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs)">
+            <summary>
+            Called before an event is relayed from the publication to the subscribers.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="handler">The handler.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.RelayedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs)">
+            <summary>
+            Called after the event was relayed from the publication to the subscribers.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="handler">The handler.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerExtension.SkippedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.Object,System.EventArgs)">
+            <summary>
+            Called when a publication or subscription matcher did not match and the event was not relayed to a subscription.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.FiringEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
+            <summary>
+            Called when an event is fired.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.FiredEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,System.Object,System.EventArgs)">
+            <summary>
+            Called when the event was fired (processing completed).
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RegisteredItem(System.Object)">
+            <summary>
+            Called when an item was registered.
+            </summary>
+            <param name="item">The item that was registered.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.UnregisteredItem(System.Object)">
+            <summary>
+            Called when an item was unregistered.
+            </summary>
+            <param name="item">The item that was unregistered.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.ProcessedPublisher(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
+            <summary>
+            Called after a (potential) publisher was processed.
+            </summary>
+            <param name="publisher">The publisher.</param>
+            <param name="register">Whether the publisher is registered; or unregistered.</param>
+            <param name="eventTopicHost">The event topic host.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.ProcessedSubscriber(System.Object,System.Boolean,bbv.Common.EventBroker.Internals.IEventTopicHost)">
+            <summary>
+            Called after a (potential) subscriber was processed.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="register">Whether the subscriber is registered; or unregistered.</param>
+            <param name="eventTopicHost">The event topic host.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.CreatedTopic(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
+            <summary>
+            Called after an event topic was created.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.CreatedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Called after a publication was created.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.CreatedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
+            <summary>
+            Called after a subscription was created.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="subscription">The subscription.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.AddedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Called after a publication was added to an event topic.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RemovedPublication(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Called after a publication was removed from an event topic.
+            </summary>
+            <param name="eventTopic">The event topic. Null if removed by code.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.AddedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
+            <summary>
+            Called after a subscription was added to an event topic.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="subscription">The subscription.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RemovedSubscription(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.ISubscription)">
+            <summary>
+            Called after a subscription was removed from an event topic.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="subscription">The subscription.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.Disposed(bbv.Common.EventBroker.Internals.IEventTopicInfo)">
+            <summary>
+            Called after an event topic was disposed.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.SubscriberExceptionOccurred(bbv.Common.EventBroker.Internals.IEventTopicInfo,System.Exception,bbv.Common.EventBroker.ExceptionHandlingContext)">
+            <summary>
+            Called when an exception occurred during event handling by a subscriber.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="exception">The exception.</param>
+            <param name="context">The context providing information whether the exception is handled by an extension or is re-thrown.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RelayingEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs)">
+            <summary>
+            Called before an event is relayed from the publication to the subscribers.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="handler">The handler.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.RelayedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,bbv.Common.EventBroker.IHandler,System.Object,System.EventArgs)">
+            <summary>
+            Called after the event was relayed from the publication to the subscribers.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="handler">The handler.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Extensions.EventBrokerExtensionBase.SkippedEvent(bbv.Common.EventBroker.Internals.IEventTopicInfo,bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.Object,System.EventArgs)">
+            <summary>
+            Called when a publication or subscription matcher did not match and the event was not relayed to a subscription.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.HandlerKind">
+            <summary>
+            Defines the way the subscription handler handles events (synchronously or asynchronously).
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.HandlerKind.Synchronous">
+            <summary>
+            Synchronous handling. The event invoker is blocked until event is handled. 
+            The event invoker can evaluate the event args on return.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.HandlerKind.Asynchronous">
+            <summary>
+            Asynchronous handling. The event invoker is not blocked until event is handled. 
+            The event invoker must not evaluate the event args on return.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.HandlerRestriction">
+            <summary>
+            Defines restrictions the publisher makes on how the event has to be handled (synchronously or asynchronously).
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.HandlerRestriction.None">
+            <summary>
+            Synchronous and asynchronous handling is allowed.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.HandlerRestriction.Synchronous">
+            <summary>
+            Only synchronous handling is allowed, e.g. the publisher wants to evaluate the event args afterwards.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.HandlerRestriction.Asynchronous">
+            <summary>
+            Only asynchronous handling is allowed. The publisher does not want to be blocked.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.Background">
+            <summary>
+            Handler that executes the subscription on a thread pool worker process (asynchronous).
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.EventBrokerHandlerBase">
+            <summary>
+            Abstract base class for event broker handles providing the host of extensions.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.IHandler">
+            <summary>
+            A handler defines how a subscription is executed (on which thread, sync, async, ...).
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IHandler.Initialize(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.Internals.IExtensionHost)">
+            <summary>
+            Initializes the handler.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">Name of the handler method on the subscriber.</param>
+            <param name="extensionHost">Provides access to all registered extensions.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IHandler.Handle(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Executes the subscription.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="subscriptionHandler">The subscription handler.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.IHandler.Kind">
+            <summary>
+            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
+            </summary>
+            <value>The kind of the handler (synchronous or asynchronous).</value>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.EventBrokerHandlerBase.Initialize(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.Internals.IExtensionHost)">
+            <summary>
+            Initializes the handler.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">Name of the handler method on the subscriber.</param>
+            <param name="extensionHost">Provides access to all registered extensions.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.EventBrokerHandlerBase.Handle(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Executes the subscription.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="subscriptionHandler">The subscription handler.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.EventBrokerHandlerBase.HandleSubscriberMethodException(System.Reflection.TargetInvocationException,bbv.Common.EventBroker.Internals.IEventTopic)">
+            <summary>
+            Handles a subscriber method exception by passing it to all extensions and re-throwing the inner exception in case that none of the
+            extensions handled it.
+            </summary>
+            <param name="targetInvocationException">The targetInvocationException.</param>
+            <param name="eventTopic">The event topic.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.EventBrokerHandlerBase.Kind">
+            <summary>
+            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
+            </summary>
+            <value>The kind of the handler (synchronous or asynchronous).</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.EventBrokerHandlerBase.ExtensionHost">
+            <summary>
+            Gets the extension host.
+            </summary>
+            <value>The extension host.</value>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.Background.Handle(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Executes the subscription on a thread pool worker thread.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="subscriptionHandler">The subscription handler.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.Background.Kind">
+            <summary>
+            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
+            </summary>
+            <value>The kind of the handler (synchronous or asynchronous).</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments">
+            <summary>
+            Struct that is passed to the background worker thread.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.Handler">
+            <summary>
+            The event topic handler method on the subscriber.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.Sender">
+            <summary>
+            The publisher sending the event.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.EventArgs">
+            <summary>
+            The event args of the event.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.#ctor(System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments"/> struct.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="eventArgs">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="handler">The handler.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.ExceptionHandlingContext">
+            <summary>
+            Provides context information for handling exceptions by extensions.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.ExceptionHandlingContext.SetHandled">
+            <summary>
+            Sets <see cref="P:bbv.Common.EventBroker.ExceptionHandlingContext.Handled"/> to true.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.ExceptionHandlingContext.Handled">
+            <summary>
+            Gets a value indicating whether the exception is handled by an extension.
+            When this value is set to true with <see cref="M:bbv.Common.EventBroker.ExceptionHandlingContext.SetHandled"/> then the exception is not re-thrown.
+            </summary>
+            <value><c>true</c> if handled; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.Publisher">
+            <summary>
+            Handler that executes the subscription on the same thread the publisher is currently running (synchronous).
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.Publisher.Handle(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Executes the subscription synchronously on the same thread as the publisher is currently running.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="subscriptionHandler">The subscription handler.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.Publisher.Kind">
+            <summary>
+            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
+            </summary>
+            <value>The kind of the handler (synchronous or asynchronous).</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.UserInterface">
+            <summary>
+            Handler that executes the subscription synchronously on the user interface thread (Send semantics).
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Handlers.UserInterface.syncContextHolder">
+            <summary>
+            The synchronization context that is used to switch to the UI thread.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.UserInterface.Initialize(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.Internals.IExtensionHost)">
+            <summary>
+            Initializes the handler with the synchronization context for the user interface thread, which has to be the currently running process.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">Handler method on the subscriber.</param>
+            <param name="extensionHost">The extension host.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.UserInterface.Handle(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Executes the subscription synchronously on the user interface thread.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="subscriptionHandler">The subscription handler.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.UserInterface.Kind">
+            <summary>
+            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
+            </summary>
+            <value>The kind of the handler (synchronous or asynchronous).</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.UserInterfaceAsync">
+            <summary>
+            Handler that executes the subscription asynchronously on the user interface thread (Post semantics).
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.syncContextHolder">
+            <summary>
+            The synchronization context that is used to switch to the UI thread.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.Initialize(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.Internals.IExtensionHost)">
+            <summary>
+            Initializes the handler with the synchronization context for the user interface thread, which has to be the currently running process.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">Handler method on the subscriber.</param>
+            <param name="extensionHost">The extension host.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.Handle(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,System.Delegate)">
+            <summary>
+            Executes the subscription asynchronously on the user interface thread.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="subscriptionHandler">The subscription handler.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.Kind">
+            <summary>
+            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
+            </summary>
+            <value>The kind of the handler (synchronous or asynchronous).</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder">
+            <summary>
+            Helper class to store the synchronization context.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder.Initalize(System.Object,System.Reflection.MethodInfo)">
+            <summary>
+            Initializes this instance. If the current thread is not the user interface thread then an exception is thrown.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">Handler method on the subscriber.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder.SyncContext">
+            <summary>
+            Gets the synchronization context that was acquired on registration.
+            </summary>
+            <value>The synchronization context that was acquired on registration.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder.ThreadId">
+            <summary>
+            Gets the id of the thread this instance was initialized on.
+            </summary>
+            <value>The thread id.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.IEventBrokerRegisterable">
+            <summary>
+            Publishers and subscribers implementing this interface or notified by a call to
+            <see cref="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Register(bbv.Common.EventBroker.IEventRegisterer)"/> that they have been registered and a call to <see cref="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Unregister(bbv.Common.EventBroker.IEventRegisterer)"/> that they have been unregistered.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Register(bbv.Common.EventBroker.IEventRegisterer)">
+            <summary>
+            The publisher or subscriber can register additional publications and subscriptions
+            on the <paramref name="eventRegisterer"/>.
+            </summary>
+            <param name="eventRegisterer">The event registerer to register publications and subscriptions.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Unregister(bbv.Common.EventBroker.IEventRegisterer)">
+            <summary>
+            The publisher or subscribe has to clean-up all registrations made in call to <see cref="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Register(bbv.Common.EventBroker.IEventRegisterer)"/>.
+            </summary>
+            <param name="eventRegisterer">The event registerer.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.IFactory">
+            <summary>
+            Factory for creating subscription execution handlers and scope matcher.
+            </summary>
+            <remarks>
+            The factory that is used by an <see cref="T:bbv.Common.EventBroker.IEventBroker"/> can be set on the constructor of the event broker.
+            </remarks>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.Initialize(bbv.Common.EventBroker.Internals.IExtensionHost)">
+            <summary>
+            Initializes this factory with the specified <paramref name="extensionHost"/> holding all extensions.
+            </summary>
+            <param name="extensionHost">The extension host holding all extensions (this is the event broker).</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateEventTopicHost(bbv.Common.EventBroker.Internals.IGlobalMatchersProvider)">
+            <summary>
+            Creates an event topic host.
+            </summary>
+            <param name="globalMatchersProvider">The global matchers provider.</param>
+            <returns>A newly created event topic host.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateEventInspector">
+            <summary>
+            Creates an event inspector.
+            </summary>
+            <returns>A newly created event inspector.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateEventTopic(System.String,bbv.Common.EventBroker.Internals.IGlobalMatchersProvider)">
+            <summary>
+            Creates a new event topic
+            </summary>
+            <param name="uri">The URI of the event topic.</param>
+            <param name="globalMatchersProvider">The global matchers provider.</param>
+            <returns>A newly created event topic</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublication(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.Reflection.EventInfo,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
+            <summary>
+            Creates a new publication
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publisher">The publisher.</param>
+            <param name="eventInfo">The event info.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="publicationMatchers">The publication matchers.</param>
+            <returns>A newly created publication</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublication(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
+            <summary>
+            Creates a new publication
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publisher">The publisher.</param>
+            <param name="eventHandler">The event handler.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="publicationMatchers">The publication matchers.</param>
+            <returns>A newly created publication</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublication``1(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler{``0}@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
+            <summary>
+            Creates a new publication
+            </summary>
+            <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
+            <param name="eventTopic">The event topic.</param>
+            <param name="publisher">The publisher.</param>
+            <param name="eventHandler">The event handler.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="publicationMatchers">The publication matchers.</param>
+            <returns>A newly created publication</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.DestroyPublication(bbv.Common.EventBroker.Internals.IPublication,System.EventHandler@)">
+            <summary>
+            Destroys the publication.
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="publishedEvent">The published event.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.DestroyPublication``1(bbv.Common.EventBroker.Internals.IPublication,System.EventHandler{``0}@)">
+            <summary>
+            Destroys the publication.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event args.</typeparam>
+            <param name="publication">The publication.</param>
+            <param name="publishedEvent">The published event.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateSubscription(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.IHandler,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.ISubscriptionMatcher})">
+            <summary>
+            Creates a new subscription
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">The handler method.</param>
+            <param name="handler">The handler.</param>
+            <param name="subscriptionMatchers">The subscription scope matchers.</param>
+            <returns>A newly created subscription</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateHandler(System.Type)">
+            <summary>
+            Creates a subscription execution handler. This handler defines on which thread the subscription is executed.
+            </summary>
+            <param name="handlerType">Type of the handler.</param>
+            <returns>A new subscription execution handler.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublicationMatcher(System.Type)">
+            <summary>
+            Creates a publication matcher.
+            </summary>
+            <param name="matcherType">Type of the matcher.</param>
+            <returns>A newly created publication matcher.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateSubscriptionMatcher(System.Type)">
+            <summary>
+            Creates a subscription matcher.
+            </summary>
+            <param name="matcherType">Type of the subscription matcher.</param>
+            <returns>A newly create subscription matcher.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.IFactory.CreateGlobalMatchersHost">
+            <summary>
+            Creates the global matchers host.
+            </summary>
+            <returns>A newly created global matchers host.</returns>
+        </member>
+        <member name="T:bbv.Common.EventBroker.INamedItem">
+            <summary>
+            <see cref="T:bbv.Common.EventBroker.INamedItem"/> is used to give publishers or subscribers names to use scope matchers.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.INamedItem.EventBrokerItemName">
+            <summary>
+            Gets the name of the event broker item that is used for scope matchers.
+            </summary>
+            <value>The name of the event broker item.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Internals.CodePublication`1">
+            <summary>
+            Publication that was registered by code.
+            </summary>
+            <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Internals.Publication">
+            <summary>
+            Represents a topic publication.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Internals.IPublication">
+            <summary>
+            Defines a publication. Either a real <see cref="T:bbv.Common.EventBroker.Internals.Publication"/> or a <see cref="T:bbv.Common.EventBroker.Internals.SpontaneousPublication"/>.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.IPublication.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this publication
+            name, scope, event handler.
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.IPublication.Publisher">
+            <summary>
+            Gets the publisher of the event.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.IPublication.PublicationMatchers">
+            <summary>
+            Gets the publication matchers.
+            </summary>
+            <value>The publication matchers.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.IPublication.HandlerRestriction">
+            <summary>
+            Gets the subscriber handler restriction.
+            </summary>
+            <value>The subscriber handler restriction.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.IPublication.EventName">
+            <summary>
+            Gets the name of the event on the <see cref="P:bbv.Common.EventBroker.Internals.Publication.Publisher"/>.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.IPublication.EventArgsType">
+            <summary>
+            Gets the type of the event arguments.
+            </summary>
+            <value>The type of the event arguments.</value>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Publication.topic">
+            <summary>
+            The event topic this publication is registered on.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Publication.publisher">
+            <summary>
+            Weak reference to the publisher.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Publication.publicationMatchers">
+            <summary>
+            The matchers used on this publication.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Publication.handlerRestriction">
+            <summary>
+            Restriction of this publication for its subscription handlers.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Publication.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.Publication"/> class.
+            </summary>
+            <param name="topic">The event topic this publication belongs to.</param>
+            <param name="publisher">The publisher.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="publicationMatchers">The publication matchers.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Publication.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this publication
+            name, scope, event handler.
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Publication.Dispose">
+            <summary>
+            See <see cref="M:System.IDisposable.Dispose"/> for more information.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Publication.Dispose(System.Boolean)">
+            <summary>
+            Implementation of the disposable pattern.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Publication.Fire(System.Object,System.EventArgs)">
+            <summary>
+            Fires the event publication.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Publication.Publisher">
+            <summary>
+            Gets the publisher of the event.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Publication.EventName">
+            <summary>
+            Gets the name of the event on the <see cref="P:bbv.Common.EventBroker.Internals.Publication.Publisher"/>.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Publication.HandlerRestriction">
+            <summary>
+            Gets the subscriber handler restriction.
+            </summary>
+            <value>The subscriber handler restriction.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Publication.PublicationMatchers">
+            <summary>
+            Gets the publication matchers.
+            </summary>
+            <value>The publication matcher.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Publication.EventArgsType">
+            <summary>
+            Gets the type of the event arguments.
+            </summary>
+            <value>The type of the event arguments.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Publication.IsPublisherAlive">
+            <summary>
+            Gets a value indicating whether the publisher is alive (not garbage collected).
+            </summary>
+            <value><c>true</c> if the publisher is alive; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.CodePublication`1.EventNameOfCodePublication">
+            <summary>
+            This name is used for events of publications made in code. The real name cannot be accessed through the event handler.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.CodePublication`1.eventArgsType">
+            <summary>
+            Type of the event args of the published event.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.CodePublication`1"/> class.
+            </summary>
+            <param name="topic">The topic.</param>
+            <param name="publisher">The publisher.</param>
+            <param name="eventHandler">The event handler.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="publicationMatchers">The publication matchers.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler{`0}@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.CodePublication`1"/> class.
+            </summary>
+            <param name="topic">The topic.</param>
+            <param name="publisher">The publisher.</param>
+            <param name="eventHandler">The event handler.</param>
+            <param name="handlerRestriction">The handler restriction.</param>
+            <param name="publicationMatchers">The publication matchers.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.Unregister(System.EventHandler@)">
+            <summary>
+            Unregisters the specified published event.
+            </summary>
+            <param name="publishedEvent">The published event.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.Unregister(System.EventHandler{`0}@)">
+            <summary>
+            Unregisters the specified published event.
+            </summary>
+            <param name="publishedEvent">The published event.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.Dispose(System.Boolean)">
+            <summary>
+            Implementation of the disposable pattern.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.CodePublication`1.PublicationHandler(System.Object,System.EventArgs)">
+            <summary>
+            Fires the event publication. This method is registered to the event on the publisher.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.CodePublication`1.EventName">
+            <summary>
+            Gets the name of the event on the <see cref="P:bbv.Common.EventBroker.Internals.Publication.Publisher"/>.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.CodePublication`1.EventArgsType">
+            <summary>
+            Gets the type of the event arguments.
+            </summary>
+            <value>The type of the event arguments.</value>
+        </member>
         <member name="T:bbv.Common.EventBroker.Internals.EventInspector">
             <summary>
             The <see cref="T:bbv.Common.EventBroker.Internals.EventInspector"/> scans classes for publications or subscriptions.
@@ -1160,127 +1951,6 @@
             <param name="handlerMethod">The handler method.</param>
             <param name="handler">The handler.</param>
             <param name="matchers">The matchers.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.EventPublicationAttribute">
-            <summary>
-            Declares an event as an <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> publication.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.EventPublicationAttribute.topic">
-            <summary>
-            The URI of the event topic this publication refers to.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.EventPublicationAttribute.matcherTypes">
-            <summary>
-            Which matchers are used for this publication.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.EventPublicationAttribute.handlerRestriction">
-            <summary>
-            The restriction this publication has for subscribers.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class with
-            global publication scope.
-            </summary>
-            <param name="topic">The topic URI.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String,bbv.Common.EventBroker.HandlerRestriction)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class.
-            </summary>
-            <param name="topic">The topic URI.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String,System.Type[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class.
-            </summary>
-            <param name="topic">The topic.</param>
-            <param name="matcherTypes">The matcher types.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.EventPublicationAttribute.#ctor(System.String,bbv.Common.EventBroker.HandlerRestriction,System.Type[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventPublicationAttribute"/> class.
-            </summary>
-            <param name="topic">The topic.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="matcherTypes">The matcher types.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.EventPublicationAttribute.Topic">
-            <summary>
-            Gets the topic URI.
-            </summary>
-            <value>The topic URI.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.EventPublicationAttribute.MatcherTypes">
-            <summary>
-            Gets the types of the matchers.
-            </summary>
-            <value>The types of the matchers.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.EventPublicationAttribute.HandlerRestriction">
-            <summary>
-            Gets the handler restriction this publication has for its subscribers. Whether all (null),
-            only synchronous or asynchronous handling is allowed.
-            </summary>
-            <value>The handler restriction.</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.EventSubscriptionAttribute">
-            <summary>
-            Declares a handler as an <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> subscription.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.EventSubscriptionAttribute.topic">
-            <summary>
-            The URI of the event topic this publication refers to.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.EventSubscriptionAttribute.handlerType">
-            <summary>
-            Which threading strategy handler is used for this subscription.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.EventSubscriptionAttribute.matcherTypes">
-            <summary>
-            Which matchers are used for this subscription.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.EventSubscriptionAttribute.#ctor(System.String,System.Type)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventSubscriptionAttribute"/> class using the specified handler to execute the subscription.
-            </summary>
-            <param name="topic">The name of the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> to subscribe to.</param>
-            <param name="handlerType">The type of the handler to execute the subscription (on publisher thread, user interface, ...).</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.EventSubscriptionAttribute.#ctor(System.String,System.Type,System.Type[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.EventSubscriptionAttribute"/> class using the specified handler to execute the subscription and the
-            specified subscription scope matcher.
-            </summary>
-            <param name="topic">The name of the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> to subscribe to.</param>
-            <param name="handlerType">The type of the handler to execute the subscription (on publisher thread, user interface, ...).</param>
-            <param name="matcherTypes">Type of the matchers used for this subscription.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.EventSubscriptionAttribute.Topic">
-            <summary>
-            Gets the name of the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> the decorated method is subscribed to.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.EventSubscriptionAttribute.HandlerType">
-            <summary>
-            Gets the type of the subscription execution handler.
-            </summary>
-            <value>The type of the subscription execution handler.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.EventSubscriptionAttribute.MatcherTypes">
-            <summary>
-            Gets the types of the matchers.
-            </summary>
-            <value>The types of the matchers.</value>
         </member>
         <member name="T:bbv.Common.EventBroker.Internals.EventTopic">
             <summary>
@@ -1587,12 +2257,6 @@
             <param name="handlers">The handlers to call.</param>
             <param name="publication">The publication firing the event topic.</param>
         </member>
-        <member name="M:bbv.Common.EventBroker.Internals.EventTopic.TraceExceptions(System.Collections.Generic.IEnumerable{System.Exception})">
-            <summary>
-            Logs the specified exceptions.
-            </summary>
-            <param name="exceptions">The exceptions.</param>
-        </member>
         <member name="M:bbv.Common.EventBroker.Internals.EventTopic.ThrowIfRepeatedPublication(System.Object,System.String)">
             <summary>
             Throws a <see cref="T:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException"/> if a duplicate publication is detected.
@@ -1656,8 +2320,6 @@
             <param name="sender">The publisher object firing the topic.</param>
             <param name="e">The <see cref="T:System.EventArgs"/> data to be passed to the subscribers.</param>
             <param name="publication">The publication firing the event.</param>
-            <param name="exceptions">An <see cref="T:System.Exception"/> list where a <see cref="T:bbv.Common.EventBroker.Internals.Subscription"/> should 
-            register the exceptions that occurred during execution of the subscription code.</param>
         </member>
         <member name="T:bbv.Common.EventBroker.Internals.EventTopicHost">
             <summary>
@@ -1732,481 +2394,6 @@
             </summary>
             <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.EventBrokerException">
-            <summary>
-            Base exception for all exceptions that are thrown within the event broker framework.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor(System.String,System.Object[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
-            </summary>
-            <param name="format">Exception message as a format string.</param>
-            <param name="args">Argument for the exception message format string.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-            <param name="innerException">The inner exception.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventBrokerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> class.
-            </summary>
-            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
-            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"></see> that contains contextual information about the source or destination.</param>
-            <exception cref="T:System.Runtime.Serialization.SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0). </exception>
-            <exception cref="T:System.ArgumentNullException">The info parameter is null. </exception>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.EventTopicException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown by the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> when exceptions occurs
-            on its subscriptions during a firing sequence.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Exceptions.EventTopicException.exceptions">
-            <summary>
-            The list of all exceptions that occurred on all subscription handlers.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Exceptions.EventTopicException.topic">
-            <summary>
-            Link to the event topic that was fired.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class.
-            </summary>
-            <param name="message">The message.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class with a specified error message 
-            and a reference to the inner exception that is the cause of this exception.
-            </summary>
-            <param name="message">The error message that explains the reason for the exception.</param>
-            <param name="innerException">The exception that is the cause of the current exception, 
-            or a null reference if no inner exception is specified.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Collections.ObjectModel.ReadOnlyCollection{System.Exception})">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class with the specified list of exceptions.
-            </summary>
-            <param name="topic">The <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> instance whose subscribers incurred into an exception.</param>
-            <param name="exceptions">The list of exceptions that occurred during the subscribers invocation.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(bbv.Common.EventBroker.Internals.IEventTopic,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class.
-            </summary>
-            <param name="topic">The <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> instance whose subscribers incurred into an exception.</param>
-            <param name="innerException">The inner exception.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.EventTopicException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.EventTopicException"/> class with serialized data.
-            </summary>
-            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
-            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Exceptions.EventTopicException.Exceptions">
-            <summary>
-            Gets the list of exceptions that occurred during the subscribers invocation.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Exceptions.EventTopicException.Topic">
-            <summary>
-            Gets the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> which incurred into errors.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.InvalidPublicationSignatureException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when an invalid publication signature is found while registering a publisher.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.InvalidPublicationSignatureException.#ctor(System.Reflection.EventInfo)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.InvalidPublicationSignatureException"/> class.
-            </summary>
-            <param name="eventInfo">The event info.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when an invalid subscription signature is found while registering a subscriber.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException.methodInfo">
-            <summary>
-            The method info of the handler with invalid signature.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException.#ctor(System.Reflection.MethodInfo)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException"/> class.
-            </summary>
-            <param name="methodInfo">The method info.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Exceptions.InvalidSubscriptionSignatureException.MethodInfo">
-            <summary>
-            Gets the method info of the handler with invalid signature.
-            </summary>
-            <value>Method info of invalid subscription handler.</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.NotUserInterfaceThreadException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a subscription on UI thread is found on a subscriber that is not registered on the UI thread.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.NotUserInterfaceThreadException.#ctor(System.Object,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.NotUserInterfaceThreadException"/> class.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethodName">Name of the handler method.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.PublisherEventNotFoundException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a published event can not be found while registering a publisher.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.PublisherEventNotFoundException.#ctor(System.Type,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.PublisherEventNotFoundException"/> class.
-            </summary>
-            <param name="publisherType">Type of the publisher.</param>
-            <param name="eventName">Name of the event.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a single publication event defines the same topic several times.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException.#ctor(System.Object,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.RepeatedPublicationException"/> class.
-            </summary>
-            <param name="publisher">The publisher.</param>
-            <param name="eventName">Name of the event.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.RepeatedSubscriptionException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a single subscription handler method defines the same topic several times.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.RepeatedSubscriptionException.#ctor(System.Object,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.RepeatedSubscriptionException"/> class.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethodName">Name of the handler method.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.StaticPublisherEventException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a published event is static.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.StaticPublisherEventException.#ctor(System.Reflection.EventInfo)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.StaticPublisherEventException"/> class.
-            </summary>
-            <param name="eventInfo">The event info.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.StaticSubscriberHandlerException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a static subscription handler is found.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.StaticSubscriberHandlerException.#ctor(System.Reflection.MethodInfo)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.StaticSubscriberHandlerException"/> class.
-            </summary>
-            <param name="methodInfo">The method info.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException">
-            <summary>
-            An <see cref="T:bbv.Common.EventBroker.Exceptions.EventBrokerException"/> thrown when a handler emthod can not be found.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.subscriberType">
-            <summary>
-            The type of the subscriber.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.handlerMethodName">
-            <summary>
-            The name of the handler method.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.#ctor(System.Type,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException"/> class.
-            </summary>
-            <param name="subscriberType">Type of the subscriber.</param>
-            <param name="handlerMethodName">Name of the handler method.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.SubscriberType">
-            <summary>
-            Gets the type of the subscriber.
-            </summary>
-            <value>The type of the subscriber.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Exceptions.SubscriberHandlerNotFoundException.HandlerMethodName">
-            <summary>
-            Gets the name of the handler method.
-            </summary>
-            <value>The name of the handler method.</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.HandlerKind">
-            <summary>
-            Defines the way the subscription handler handles events (synchronously or asynchronously).
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.HandlerKind.Synchronous">
-            <summary>
-            Synchronous handling. The event invoker is blocked until event is handled. 
-            The event invoker can evaluate the event args on return.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.HandlerKind.Asynchronous">
-            <summary>
-            Asynchronous handling. The event invoker is not blocked until event is handled. 
-            The event invoker must not evaluate the event args on return.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.HandlerRestriction">
-            <summary>
-            Defines restrictions the publisher makes on how the event has to be handled (synchronously or asynchronously).
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.HandlerRestriction.None">
-            <summary>
-            Synchronous and asynchronous handling is allowed.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.HandlerRestriction.Synchronous">
-            <summary>
-            Only synchronous handling is allowed, e.g. the publisher wants to evaluate the event args afterwards.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.HandlerRestriction.Asynchronous">
-            <summary>
-            Only asynchronous handling is allowed. The publisher does not want to be blocked.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Handlers.Background">
-            <summary>
-            Handler that executes the subscription on a thread pool worker process (asynchronous).
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.IHandler">
-            <summary>
-            A handler defines how a subscription is executed (on which thread, sync, async, ...).
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IHandler.Initialize(System.Object,System.Reflection.MethodInfo)">
-            <summary>
-            Initializes the handler.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">Name of the handler method on the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IHandler.Handle(System.Object,System.EventArgs,System.Delegate)">
-            <summary>
-            Executes the subscription.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="subscriptionHandler">The subscription handler.</param>
-            <returns>The exception that occurred during handling of the event. Null if no exception occurred</returns>
-        </member>
-        <member name="P:bbv.Common.EventBroker.IHandler.Kind">
-            <summary>
-            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
-            </summary>
-            <value>The kind of the handler (synchronous or asynchronous).</value>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.Background.Initialize(System.Object,System.Reflection.MethodInfo)">
-            <summary>
-            Initializes the handler.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">Name of the handler method on the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.Background.Handle(System.Object,System.EventArgs,System.Delegate)">
-            <summary>
-            Executes the subscription on a thread pool worker thread.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="subscriptionHandler">The subscription handler.</param>
-            <returns>Returns null. Asynchronous operation cannot return exception here.</returns>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Handlers.Background.Kind">
-            <summary>
-            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
-            </summary>
-            <value>The kind of the handler (synchronous or asynchronous).</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments">
-            <summary>
-            Struct that is passed to the background worker thread.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.Handler">
-            <summary>
-            The event topic handler method on the subscriber.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.Sender">
-            <summary>
-            The publisher sending the event.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.EventArgs">
-            <summary>
-            The event args of the event.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments.#ctor(System.Object,System.EventArgs,System.Delegate)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Handlers.Background.CallInBackgroundArguments"/> struct.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="eventArgs">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="handler">The handler.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Handlers.Publisher">
-            <summary>
-            Handler that executes the subscription on the same thread the publisher is currently running (synchronous).
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.Publisher.Initialize(System.Object,System.Reflection.MethodInfo)">
-            <summary>
-            Initializes the handler.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">Name of the handler method on the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.Publisher.Handle(System.Object,System.EventArgs,System.Delegate)">
-            <summary>
-            Executes the subscription synchronously on the same thread as the publisher is currently running.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="subscriptionHandler">The subscription handler.</param>
-            <returns>
-            The exception that occurred during handling of the event. Null if no exception occurred
-            </returns>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Handlers.Publisher.Kind">
-            <summary>
-            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
-            </summary>
-            <value>The kind of the handler (synchronous or asynchronous).</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Handlers.UserInterface">
-            <summary>
-            Handler that executes the subscription synchronously on the user interface thread (Send semantics).
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Handlers.UserInterface.syncContextHolder">
-            <summary>
-            The synchronization context that is used to switch to the UI thread.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.UserInterface.Initialize(System.Object,System.Reflection.MethodInfo)">
-            <summary>
-            Initializes the handler with the synchronization context for the user interface thread, which has to be the currently running process.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">Handler method on the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.UserInterface.Handle(System.Object,System.EventArgs,System.Delegate)">
-            <summary>
-            Executes the subscription synchronously on the user interface thread.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="subscriptionHandler">The subscription handler.</param>
-            <returns>
-            The exception that occurred during handling of the event. Null if no exception occurred
-            </returns>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Handlers.UserInterface.Kind">
-            <summary>
-            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
-            </summary>
-            <value>The kind of the handler (synchronous or asynchronous).</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Handlers.UserInterfaceAsync">
-            <summary>
-            Handler that executes the subscription asynchronously on the user interface thread (Post semantics).
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.syncContextHolder">
-            <summary>
-            The synchronization context that is used to switch to the UI thread.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.Initialize(System.Object,System.Reflection.MethodInfo)">
-            <summary>
-            Initializes the handler with the synchronization context for the user interface thread, which has to be the currently running process.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">Handler method on the subscriber.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.Handle(System.Object,System.EventArgs,System.Delegate)">
-            <summary>
-            Executes the subscription asynchronously on the user interface thread.
-            </summary>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="subscriptionHandler">The subscription handler.</param>
-            <returns>Returns null. Asynchronous operation cannot return exception here.</returns>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Handlers.UserInterfaceAsync.Kind">
-            <summary>
-            Gets the kind of the handler, whether it is a synchronous or asynchronous handler.
-            </summary>
-            <value>The kind of the handler (synchronous or asynchronous).</value>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder">
-            <summary>
-            Helper class to store the synchronization context.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder.Initalize(System.Object,System.Reflection.MethodInfo)">
-            <summary>
-            Initializes this instance. If the current thread is not the user interface thread then an exception is thrown.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">Handler method on the subscriber.</param>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder.SyncContext">
-            <summary>
-            Gets the synchronization context that was acquired on registration.
-            </summary>
-            <value>The synchronization context that was acquired on registration.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Handlers.UserInterfaceSyncContextHolder.ThreadId">
-            <summary>
-            Gets the id of the thread this instance was initialized on.
-            </summary>
-            <value>The thread id.</value>
-        </member>
         <member name="T:bbv.Common.EventBroker.Internals.GlobalMatchersHost">
             <summary>
             Host for global matchers.
@@ -2258,157 +2445,6 @@
             </summary>
             <value>The matchers.</value>
         </member>
-        <member name="T:bbv.Common.EventBroker.IFactory">
-            <summary>
-            Factory for creating subscription execution handlers and scope matcher.
-            </summary>
-            <remarks>
-            The factory that is used by an <see cref="T:bbv.Common.EventBroker.IEventBroker"/> can be set on the constructor of the event broker.
-            </remarks>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.Initialize(bbv.Common.EventBroker.Internals.IExtensionHost)">
-            <summary>
-            Initializes this factory with the specified <paramref name="extensionHost"/> holding all extensions.
-            </summary>
-            <param name="extensionHost">The extension host holding all extensions (this is the event broker).</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateEventTopicHost(bbv.Common.EventBroker.Internals.IGlobalMatchersProvider)">
-            <summary>
-            Creates an event topic host.
-            </summary>
-            <param name="globalMatchersProvider">The global matchers provider.</param>
-            <returns>A newly created event topic host.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateEventInspector">
-            <summary>
-            Creates an event inspector.
-            </summary>
-            <returns>A newly created event inspector.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateEventTopic(System.String,bbv.Common.EventBroker.Internals.IGlobalMatchersProvider)">
-            <summary>
-            Creates a new event topic
-            </summary>
-            <param name="uri">The URI of the event topic.</param>
-            <param name="globalMatchersProvider">The global matchers provider.</param>
-            <returns>A newly created event topic</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublication(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.Reflection.EventInfo,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
-            <summary>
-            Creates a new publication
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publisher">The publisher.</param>
-            <param name="eventInfo">The event info.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="publicationMatchers">The publication matchers.</param>
-            <returns>A newly created publication</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublication(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
-            <summary>
-            Creates a new publication
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publisher">The publisher.</param>
-            <param name="eventHandler">The event handler.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="publicationMatchers">The publication matchers.</param>
-            <returns>A newly created publication</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublication``1(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventHandler{``0}@,bbv.Common.EventBroker.HandlerRestriction,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.IPublicationMatcher})">
-            <summary>
-            Creates a new publication
-            </summary>
-            <typeparam name="TEventArgs">The type of the event arguments.</typeparam>
-            <param name="eventTopic">The event topic.</param>
-            <param name="publisher">The publisher.</param>
-            <param name="eventHandler">The event handler.</param>
-            <param name="handlerRestriction">The handler restriction.</param>
-            <param name="publicationMatchers">The publication matchers.</param>
-            <returns>A newly created publication</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.DestroyPublication(bbv.Common.EventBroker.Internals.IPublication,System.EventHandler@)">
-            <summary>
-            Destroys the publication.
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="publishedEvent">The published event.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.DestroyPublication``1(bbv.Common.EventBroker.Internals.IPublication,System.EventHandler{``0}@)">
-            <summary>
-            Destroys the publication.
-            </summary>
-            <typeparam name="TEventArgs">The type of the event args.</typeparam>
-            <param name="publication">The publication.</param>
-            <param name="publishedEvent">The published event.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateSubscription(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.IHandler,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.ISubscriptionMatcher})">
-            <summary>
-            Creates a new subscription
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">The handler method.</param>
-            <param name="handler">The handler.</param>
-            <param name="subscriptionMatchers">The subscription scope matchers.</param>
-            <returns>A newly created subscription</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateHandler(System.Type)">
-            <summary>
-            Creates a subscription execution handler. This handler defines on which thread the subscription is executed.
-            </summary>
-            <param name="handlerType">Type of the handler.</param>
-            <returns>A new subscription execution handler.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreatePublicationMatcher(System.Type)">
-            <summary>
-            Creates a publication matcher.
-            </summary>
-            <param name="matcherType">Type of the matcher.</param>
-            <returns>A newly created publication matcher.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateSubscriptionMatcher(System.Type)">
-            <summary>
-            Creates a subscription matcher.
-            </summary>
-            <param name="matcherType">Type of the subscription matcher.</param>
-            <returns>A newly create subscription matcher.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IFactory.CreateGlobalMatchersHost">
-            <summary>
-            Creates the global matchers host.
-            </summary>
-            <returns>A newly created global matchers host.</returns>
-        </member>
-        <member name="T:bbv.Common.EventBroker.IEventBrokerRegisterable">
-            <summary>
-            Publishers and subscribers implementing this interface or notified by a call to
-            <see cref="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Register(bbv.Common.EventBroker.IEventRegisterer)"/> that they have been registered and a call to <see cref="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Unregister(bbv.Common.EventBroker.IEventRegisterer)"/> that they have been unregistered.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Register(bbv.Common.EventBroker.IEventRegisterer)">
-            <summary>
-            The publisher or subscriber can register additional publications and subscriptions
-            on the <paramref name="eventRegisterer"/>.
-            </summary>
-            <param name="eventRegisterer">The event registerer to register publications and subscriptions.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Unregister(bbv.Common.EventBroker.IEventRegisterer)">
-            <summary>
-            The publisher or subscribe has to clean-up all registrations made in call to <see cref="M:bbv.Common.EventBroker.IEventBrokerRegisterable.Register(bbv.Common.EventBroker.IEventRegisterer)"/>.
-            </summary>
-            <param name="eventRegisterer">The event registerer.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.INamedItem">
-            <summary>
-            <see cref="T:bbv.Common.EventBroker.INamedItem"/> is used to give publishers or subscribers names to use scope matchers.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.INamedItem.EventBrokerItemName">
-            <summary>
-            Gets the name of the event broker item that is used for scope matchers.
-            </summary>
-            <value>The name of the event broker item.</value>
-        </member>
         <member name="T:bbv.Common.EventBroker.Internals.ISubscription">
             <summary>
             Represents a subscription to an <see cref="T:bbv.Common.EventBroker.Internals.EventTopic"/>.
@@ -2454,61 +2490,6 @@
             <summary>
             Gets the handler method name that's subscribed to the event.
             </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.IMatcher">
-            <summary>
-            Interface for matchers.
-            Matchers are used to determine whether an event is handled
-            depending on the state of the publisher and subscriber.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.IMatcher.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.IMatcher.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this subscription matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.NotAlreadyCanceled">
-            <summary>
-            Subscription matcher that matches only if the event arguments are <see cref="T:System.ComponentModel.CancelEventArgs"/> and
-            the event arguments are not yet canceled.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.ISubscriptionMatcher">
-            <summary>
-            Interface for matchers on subscriptions.
-            Matchers are used to determine whether an event is handled
-            depending on the state of the publisher and subscriber.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.NotAlreadyCanceled.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            Matches if the event arguments are <see cref="T:System.ComponentModel.CancelEventArgs"/> that are not yet canceled.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.NotAlreadyCanceled.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this subscription matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
         </member>
         <member name="T:bbv.Common.EventBroker.Internals.PropertyPublication">
             <summary>
@@ -2579,157 +2560,6 @@
             </summary>
             <value>The type of the event arguments.</value>
         </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.PublishToChildren">
-            <summary>
-            Matcher for publications to children only.
-            </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.IPublicationMatcher">
-            <summary>
-            Interface for scope matchers on publications.
-            Scope matchers are used to determine whether an event is handled
-            depending on the name of the publisher and subscriber.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.PublishToChildren.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            This is the case if the name of the publisher is a prefix to the name of the subscriber.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.PublishToChildren.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this scope matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.SubscribeToChildren">
-            <summary>
-            Matcher for subscriptions to events from children only.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToChildren.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            This is the case if the name of the subscriber is a prefix to the name of the publisher.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToChildren.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this scope matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.SubscribeGlobal">
-            <summary>
-            Matcher for globally subscribed events.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeGlobal.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            This is the always the case for global subscriptions.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns>Always <code>true</code>.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeGlobal.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this scope matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.SubscribeToParents">
-            <summary>
-            Matcher for subscriptions to events from parents only.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToParents.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            This is the case if the name of the publisher is a prefix to the name of the subscriber.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToParents.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this scope matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.PublishGlobal">
-            <summary>
-            Matcher for globally published events.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.PublishGlobal.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            This is the always the case for global publications.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.PublishGlobal.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this scope matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Matchers.PublishToParents">
-            <summary>
-            Matcher for publications to parents only.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.PublishToParents.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
-            <summary>
-            Returns whether the publication and subscription match and the event published by the
-            publisher will be relayed to the subscriber.
-            <para>
-            This is the case if the name of the subscriber is a prefix to the name of the publisher.
-            </para>
-            </summary>
-            <param name="publication">The publication.</param>
-            <param name="subscription">The subscription.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Matchers.PublishToParents.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this scope matcher.
-            </summary>
-            <param name="writer">The writer the description is written to.</param>
-        </member>
         <member name="T:bbv.Common.EventBroker.Internals.SpontaneousPublication">
             <summary>
             A spontaneous publication is used when there is no real publisher but 
@@ -2771,6 +2601,325 @@
             Gets the type of the event handler.
             </summary>
             <value>The type of the event handler.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Internals.Subscription">
+            <summary>
+            Represents a topic subscription.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.subscriber">
+            <summary>
+            Weak reference to the subscriber.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.handlerMethodName">
+            <summary>
+            Name of the handler method on the subscriber.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.handlerMethodInfo">
+            <summary>
+            The method of the subscriber that is called on the event.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.eventHandlerType">
+            <summary>
+            Type of the event handler the subscription handler implements.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.subscriptionMatchers">
+            <summary>
+            The subscription matchers used for this subscription.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.handler">
+            <summary>
+            The handler used for this subscription.
+            </summary>
+        </member>
+        <member name="F:bbv.Common.EventBroker.Internals.Subscription.extensionHost">
+            <summary>
+            The extension host holding all extensions.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Subscription.#ctor(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.IHandler,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.ISubscriptionMatcher},bbv.Common.EventBroker.Internals.IExtensionHost)">
+            <summary>
+            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.Subscription"/> class.
+            </summary>
+            <param name="subscriber">The subscriber.</param>
+            <param name="handlerMethod">The handler method.</param>
+            <param name="handler">The handler used to execute the subscription.</param>
+            <param name="subscriptionMatchers">The subscription matchers used for this subscription.</param>
+            <param name="extensionHost">The extension host holding all extensions.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Subscription.GetHandler">
+            <summary>
+            Gets the handler that will be called by the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> during a firing sequence.
+            </summary>
+            <returns>A delegate that is used to call the subscription handler.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Subscription.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this subscription:
+            name, thread option, scope, event arguments.
+            </summary>
+            <param name="writer">The writer.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Subscription.IsValidEventHandler(System.Reflection.ParameterInfo[])">
+            <summary>
+            Determines whether the specified parameters are valid event handler parameters.
+            </summary>
+            <param name="parameters">The parameters.</param>
+            <returns>True if valid parameters.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Subscription.EventTopicFireHandler(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,bbv.Common.EventBroker.Internals.IPublication)">
+            <summary>
+            Handler that is called when a topic is fired.
+            </summary>
+            <param name="eventTopic">The event topic.</param>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <param name="publication">The publication.</param>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Internals.Subscription.CreateSubscriptionDelegate">
+            <summary>
+            Creates the subscription delegate.
+            </summary>
+            <returns>A delegate that is used to call the subscription handler method.</returns>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Subscription.EventArgsType">
+            <summary>
+            Gets the type of the event arguments this subscription is using.
+            </summary>
+            <value>The type of the event arguments.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Subscription.Subscriber">
+            <summary>
+            Gets the subscriber of the event.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Subscription.HandlerMethodName">
+            <summary>
+            Gets the handler method name that's subscribed to the event.
+            </summary>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Subscription.Handler">
+            <summary>
+            Gets the handler of this subscription.
+            </summary>
+            <value>The handler of this subscription.</value>
+        </member>
+        <member name="P:bbv.Common.EventBroker.Internals.Subscription.SubscriptionMatchers">
+            <summary>
+            Gets the subscription matchers.
+            </summary>
+            <value>The subscription matchers.</value>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.IMatcher">
+            <summary>
+            Interface for matchers.
+            Matchers are used to determine whether an event is handled
+            depending on the state of the publisher and subscriber.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.IMatcher.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.IMatcher.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this subscription matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.IPublicationMatcher">
+            <summary>
+            Interface for scope matchers on publications.
+            Scope matchers are used to determine whether an event is handled
+            depending on the name of the publisher and subscriber.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.ISubscriptionMatcher">
+            <summary>
+            Interface for matchers on subscriptions.
+            Matchers are used to determine whether an event is handled
+            depending on the state of the publisher and subscriber.
+            </summary>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.NotAlreadyCanceled">
+            <summary>
+            Subscription matcher that matches only if the event arguments are <see cref="T:System.ComponentModel.CancelEventArgs"/> and
+            the event arguments are not yet canceled.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.NotAlreadyCanceled.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            Matches if the event arguments are <see cref="T:System.ComponentModel.CancelEventArgs"/> that are not yet canceled.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.NotAlreadyCanceled.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this subscription matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.PublishGlobal">
+            <summary>
+            Matcher for globally published events.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.PublishGlobal.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            This is the always the case for global publications.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.PublishGlobal.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this scope matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.PublishToChildren">
+            <summary>
+            Matcher for publications to children only.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.PublishToChildren.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            This is the case if the name of the publisher is a prefix to the name of the subscriber.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.PublishToChildren.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this scope matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.PublishToParents">
+            <summary>
+            Matcher for publications to parents only.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.PublishToParents.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            This is the case if the name of the subscriber is a prefix to the name of the publisher.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.PublishToParents.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this scope matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.SubscribeGlobal">
+            <summary>
+            Matcher for globally subscribed events.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeGlobal.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            This is the always the case for global subscriptions.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns>Always <code>true</code>.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeGlobal.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this scope matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.SubscribeToChildren">
+            <summary>
+            Matcher for subscriptions to events from children only.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToChildren.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            This is the case if the name of the subscriber is a prefix to the name of the publisher.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToChildren.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this scope matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
+        </member>
+        <member name="T:bbv.Common.EventBroker.Matchers.SubscribeToParents">
+            <summary>
+            Matcher for subscriptions to events from parents only.
+            </summary>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToParents.Match(bbv.Common.EventBroker.Internals.IPublication,bbv.Common.EventBroker.Internals.ISubscription,System.EventArgs)">
+            <summary>
+            Returns whether the publication and subscription match and the event published by the
+            publisher will be relayed to the subscriber.
+            <para>
+            This is the case if the name of the publisher is a prefix to the name of the subscriber.
+            </para>
+            </summary>
+            <param name="publication">The publication.</param>
+            <param name="subscription">The subscription.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+            <returns><code>true</code> if event has to be sent to the subscriber.</returns>
+        </member>
+        <member name="M:bbv.Common.EventBroker.Matchers.SubscribeToParents.DescribeTo(System.IO.TextWriter)">
+            <summary>
+            Describes this scope matcher.
+            </summary>
+            <param name="writer">The writer the description is written to.</param>
         </member>
         <member name="T:bbv.Common.EventBroker.StandardFactory">
             <summary>
@@ -2943,120 +3092,6 @@
             <summary>
             Gets the extension host holding all extensions.
             </summary>
-        </member>
-        <member name="T:bbv.Common.EventBroker.Internals.Subscription">
-            <summary>
-            Represents a topic subscription.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.subscriber">
-            <summary>
-            Weak reference to the subscriber.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.handlerMethodName">
-            <summary>
-            Name of the handler method on the subscriber.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.handlerMethodInfo">
-            <summary>
-            The method of the subscriber that is called on the event.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.eventHandlerType">
-            <summary>
-            Type of the event handler the subscription handler implements.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.subscriptionMatchers">
-            <summary>
-            The subscription matchers used for this subscription.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.handler">
-            <summary>
-            The handler used for this subscription.
-            </summary>
-        </member>
-        <member name="F:bbv.Common.EventBroker.Internals.Subscription.extensionHost">
-            <summary>
-            The extension host holding all extensions.
-            </summary>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Subscription.#ctor(System.Object,System.Reflection.MethodInfo,bbv.Common.EventBroker.IHandler,System.Collections.Generic.IList{bbv.Common.EventBroker.Matchers.ISubscriptionMatcher},bbv.Common.EventBroker.Internals.IExtensionHost)">
-            <summary>
-            Initializes a new instance of the <see cref="T:bbv.Common.EventBroker.Internals.Subscription"/> class.
-            </summary>
-            <param name="subscriber">The subscriber.</param>
-            <param name="handlerMethod">The handler method.</param>
-            <param name="handler">The handler used to execute the subscription.</param>
-            <param name="subscriptionMatchers">The subscription matchers used for this subscription.</param>
-            <param name="extensionHost">The extension host holding all extensions.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Subscription.GetHandler">
-            <summary>
-            Gets the handler that will be called by the <see cref="T:bbv.Common.EventBroker.Internals.IEventTopic"/> during a firing sequence.
-            </summary>
-            <returns>A delegate that is used to call the subscription handler.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Subscription.DescribeTo(System.IO.TextWriter)">
-            <summary>
-            Describes this subscription:
-            name, thread option, scope, event arguments.
-            </summary>
-            <param name="writer">The writer.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Subscription.IsValidEventHandler(System.Reflection.ParameterInfo[])">
-            <summary>
-            Determines whether the specified parameters are valid event handler parameters.
-            </summary>
-            <param name="parameters">The parameters.</param>
-            <returns>True if valid parameters.</returns>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Subscription.EventTopicFireHandler(bbv.Common.EventBroker.Internals.IEventTopic,System.Object,System.EventArgs,bbv.Common.EventBroker.Internals.IPublication,System.Collections.Generic.List{System.Exception})">
-            <summary>
-            Handler that is called when a topic is fired.
-            </summary>
-            <param name="eventTopic">The event topic.</param>
-            <param name="sender">The sender.</param>
-            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
-            <param name="publication">The publication.</param>
-            <param name="exceptions">The exceptions that occurred during firing sequence.</param>
-        </member>
-        <member name="M:bbv.Common.EventBroker.Internals.Subscription.CreateSubscriptionDelegate">
-            <summary>
-            Creates the subscription delegate.
-            </summary>
-            <returns>A delegate that is used to call the subscription handler method.</returns>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Subscription.EventArgsType">
-            <summary>
-            Gets the type of the event arguments this subscription is using.
-            </summary>
-            <value>The type of the event arguments.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Subscription.Subscriber">
-            <summary>
-            Gets the subscriber of the event.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Subscription.HandlerMethodName">
-            <summary>
-            Gets the handler method name that's subscribed to the event.
-            </summary>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Subscription.Handler">
-            <summary>
-            Gets the handler of this subscription.
-            </summary>
-            <value>The handler of this subscription.</value>
-        </member>
-        <member name="P:bbv.Common.EventBroker.Internals.Subscription.SubscriptionMatchers">
-            <summary>
-            Gets the subscription matchers.
-            </summary>
-            <value>The subscription matchers.</value>
         </member>
         <member name="T:bbv.Common.EventBroker.UnitTestFactory">
             <summary>

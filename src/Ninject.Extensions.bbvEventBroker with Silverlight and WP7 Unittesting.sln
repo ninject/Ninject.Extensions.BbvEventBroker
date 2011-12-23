@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.bbvEvent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.bbvEventBroker.Test", "Ninject.Extensions.bbvEventBroker.Test\Ninject.Extensions.bbvEventBroker.Test.csproj", "{7D050470-D2A5-4C52-9DE1-44369205D0A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.bbvEventBroker.SilverlightTests", "Ninject.Extensions.bbvEventBroker.SilverlightTests\Ninject.Extensions.bbvEventBroker.SilverlightTests.csproj", "{A9810C4D-CFE9-4A8F-AA2D-E207A9AB2200}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutomatedRelease|Any CPU = AutomatedRelease|Any CPU
@@ -24,6 +26,11 @@ Global
 		{7D050470-D2A5-4C52-9DE1-44369205D0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D050470-D2A5-4C52-9DE1-44369205D0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D050470-D2A5-4C52-9DE1-44369205D0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9810C4D-CFE9-4A8F-AA2D-E207A9AB2200}.AutomatedRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{A9810C4D-CFE9-4A8F-AA2D-E207A9AB2200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9810C4D-CFE9-4A8F-AA2D-E207A9AB2200}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9810C4D-CFE9-4A8F-AA2D-E207A9AB2200}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9810C4D-CFE9-4A8F-AA2D-E207A9AB2200}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

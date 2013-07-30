@@ -81,6 +81,26 @@ namespace Ninject.Extensions.bbvEventBroker
         }
 
         /// <summary>
+        /// Objects that are configured to be registered on a global event broker can communicate
+        /// using event broker events.
+        /// </summary>
+        [Fact]
+        public void RegisterOnDefaultGlobalEventBroker()
+        {
+            const string EventBrokerName = "GlobalEventBroker2";
+            this.kernel.AddGlobalEventBroker(EventBrokerName);
+            this.kernel.Bind<Parent>().ToSelf().RegisterOnGlobalEventBroker();
+            this.kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnGlobalEventBroker();
+            this.kernel.Bind<Child>().ToSelf().Named("SecondChild").RegisterOnEventBroker(EventBrokerName);
+
+            var parent = this.kernel.Get<Parent>();
+            parent.FireSomeEvent();
+
+            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
+            parent.SecondChild.EventReceived.Should().BeFalse("Event was received by child 2");
+        }
+
+        /// <summary>
         /// Objects that are configured to be registered on a local event broker can communicate
         /// using event broker events. Objects on an other instance of this local event broker
         /// do not receive the events.
@@ -101,47 +121,6 @@ namespace Ninject.Extensions.bbvEventBroker
             foo.Parent1.SecondChild.EventReceived.Should().BeTrue("Event was not received by parent1.child2");
             foo.Parent2.FirstChild.EventReceived.Should().BeFalse("Event was received by parent2.child1");
             foo.Parent2.SecondChild.EventReceived.Should().BeFalse("Event was received by parent2.child2");
-        }
-
-        /// <summary>
-        /// Objects that are configured to be registered on a global event broker can communicate
-        /// using event broker events.
-        /// </summary>
-        [Fact]
-        public void RegisterOnDefaultGlobalEventBroker()
-        {
-            const string EventBrokerName = "GlobalEventBroker2";
-            this.kernel.AddGlobalEventBroker(EventBrokerName);
-            this.kernel.Bind<Parent>().ToSelf().RegisterOnGlobalEventBroker();
-            this.kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnGlobalEventBroker();
-            this.kernel.Bind<Child>().ToSelf().Named("SecondChild").RegisterOnEventBroker(EventBrokerName);
-
-            var parent = this.kernel.Get<Parent>();
-            parent.FireSomeEvent();
-
-            parent.FirstChild.EventReceived.Should().BeTrue("Event was not received by child 1");
-            parent.SecondChild.EventReceived.Should().BeFalse("Event was received by child 2");
-        }
-
-
-        /// <summary>
-        /// Objects that are configured to be registered on a local event broker can communicate
-        /// using event broker events. Objects on an other instance of this local event broker
-        /// do not receive the events.
-        /// </summary>
-        [Fact]
-        public void RegisterOnLocalEventBroker2222222222222222()
-        {
-            const string EventBrokerName = "LocalEventBroker";
-            object scope = new object();
-
-            this.kernel.Bind<Parent>().ToSelf().InScope(ctx => scope).RegisterOnEventBroker(EventBrokerName).OwnsEventBroker(EventBrokerName);
-            this.kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnEventBroker(EventBrokerName);
-            this.kernel.Bind<Child>().ToSelf().Named("SecondChild").RegisterOnEventBroker(EventBrokerName);
-
-            var parent = this.kernel.Get<Parent>();
-
-            this.kernel.Release(parent);
         }
 
         /// <summary>
